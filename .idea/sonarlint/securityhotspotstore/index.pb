@@ -7,3 +7,15 @@ A
 demo/build.gradle,a\8\a87c716152d4b33e3db68ff4f083dd356a569c51
 ]
 -demo/gradle/wrapper/gradle-wrapper.properties,9\0\90ea4f0d587f83263871ea600e6e822d79667d9f
+K
+.github/workflows/build.yml,f\e\fe77d5d1439f26e353a42bbd38dece2467ff6558
+K
+.idea/modules/demo.main.iml,5\6\56915cc1aa27c64d2dc189eab9d4c61670b2dfcf
+Å
+Q.idea/sonarlint/securityhotspotstore/f/e/fe77d5d1439f26e353a42bbd38dece2467ff6558,b\f\bf2d59c36788e10b8c96d4ee66265f0cc24523e6
+w
+G.idea/sonarlint/issuestore/f/e/fe77d5d1439f26e353a42bbd38dece2467ff6558,c\3\c34322883da221dc0e2307dbf6113ba257cd1811
+]
+-.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
