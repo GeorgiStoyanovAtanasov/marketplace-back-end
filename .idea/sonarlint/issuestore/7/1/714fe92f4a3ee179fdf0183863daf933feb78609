@@ -1,0 +1,15 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8ó½ßœŠ2J$7b397ca1-c6ba-4e7c-b588-7a8821d972c5
+¨
+java:S1845—"dRename method "setEventTypeDTO" to prevent any misunderstanding/clash with method "setEventTypeDTo".(¿½¸8÷½ßœŠ2J$2920235f-f07f-488f-9cf1-9065541030b4
+~
+java:S4144—"`Update this method so that its implementation is not identical to "setEventTypeDTo" on line 139.(¿½¸8·ƒ®Š2
+„	java:S107)"BConstructor has 14 parameters, which is greater than 7 authorized.(ˆ‹Ÿ¨8ù½ßœŠ2J$b5f05f65-8b1c-4818-831f-c73286e747a3
+†
+java:S1172)"CRemove these unused method parameters "id", "eventStatus", "users".(ˆ‹Ÿ¨8û½ßœŠ2J$7c801148-149e-4f97-873a-37d5384c6fe2
+g
+java:S1128"ERemove this unused import 'com.example.EventHub.EventType.EventType'.(©’õÀûÿÿÿÿ8Êƒ®Š2
+m
+java:S1128"KRemove this unused import 'com.example.EventHub.Organisation.Organisation'.(¨Ê«²üÿÿÿÿ8Ëƒ®Š2
+X
+java:S1128";Remove this unused import 'com.example.EventHub.User.User'.(ŸÄ„´8Ëƒ®Š2

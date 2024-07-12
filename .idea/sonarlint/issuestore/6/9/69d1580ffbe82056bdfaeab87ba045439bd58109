@@ -1,0 +1,10 @@
+
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ÿ¥’à8ŠïÎšŠ2
+S
+java:S1611"6Remove the parentheses around the "requests" parameter(¢ÌÀÈ8“ïÎšŠ2
+O
+java:S1611""2Remove the parentheses around the "form" parameter(â¦¿8”ïÎšŠ2
+Q
+java:S1611'"4Remove the parentheses around the "logout" parameter(ˆºÛŠ8•ïÎšŠ2
+e
+java:S1612'"HReplace this lambda with method reference 'LogoutConfigurer::permitAll'.(ˆºÛŠ8–ïÎšŠ2
