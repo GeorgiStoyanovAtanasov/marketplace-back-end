@@ -1,0 +1,14 @@
+
+u	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(óçâ{8µ±šŠ2
+b
+java:S1192"FDefine a constant instead of duplicating this literal "roles" 5 times.(È«¼|8¡µ±šŠ2
+o
+java:S1192"MDefine a constant instead of duplicating this literal "registration" 6 times.(Š“‘øÿÿÿÿ8¡µ±šŠ2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2
+_
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2

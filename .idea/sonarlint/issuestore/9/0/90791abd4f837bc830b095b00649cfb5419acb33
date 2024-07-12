@@ -1,0 +1,32 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8ıå­Š2J$f05f9a9c-0925-4c1b-96c8-b79b846df746
+”
+java:S3655Œ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8”ıå­Š2J$6cd71c29-df5b-4964-a1bc-e8fc8e386ca9
+“
+java:S11924"KDefine a constant instead of duplicating this literal "eventTypes" 4 times.(°ˆááüÿÿÿÿ8—ıå­Š2J$d1defe06-3757-4698-9e56-38ddcef1d5bb
+“
+java:S11926"KDefine a constant instead of duplicating this literal "event-form" 3 times.(Ñ¢°Úÿÿÿÿÿ8—ıå­Š2J$4e524de5-c037-4e0a-ade8-a8d975e7f882
+‘
+java:S11925"NDefine a constant instead of duplicating this literal "organisations" 3 times.(°÷¬8—ıå­Š2J$d99635ed-9f8a-40e2-8704-df418a94c1ee
+
+java:S1192H"FDefine a constant instead of duplicating this literal "event" 4 times.(á·ÿùÿÿÿÿ8—ıå­Š2J$5a0047a1-acf5-41b7-9d4e-e52cfad4331a
+…
+java:S6813""BRemove this field injection and use constructor injection instead.(êæÄŞ8™ıå­Š2J$af1719ac-568f-4362-a18f-83abed114527
+…
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8šıå­Š2J$12569a79-5d16-4b38-8389-7c67ee6a4dcc
+…
+java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8šıå­Š2J$b51d14dc-63c5-4659-a613-be71f9c5460f
+…
+java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞ8šıå­Š2J$fbc7e570-e46c-4884-960a-779cfecd1fc2
+…
+java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8šıå­Š2J$f9ab9f4c-89d0-46f6-9f85-d7fca2104beb
+…
+java:S6813,"BRemove this field injection and use constructor injection instead.(êæÄŞ8šıå­Š2J$b40af8ac-7db7-41c3-a391-27b1a6b88436
+…
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8šıå­Š2J$09bead70-8ea3-4b9e-a2b4-92b1a59fb278
+´
+java:S1130:"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(İş¬8§ıå­Š2J$f5cb0932-8f2e-46cb-9cf5-82b2b131db09
+h
+java:S1452N"&Remove usage of generic wildcard type.(öÑÅ8«ıå­Š2J$c6a394a3-cb5e-42e8-aa22-0ee861797078
+¼
+java:S6204V"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎİ~8¯ıå­Š2J$caa66447-a83f-4c8c-a43f-be31566e5874

@@ -1,0 +1,17 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8°ŠœšŠ2J$07538e41-ce9d-4896-879a-4500b5d8fd27
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8µŠœšŠ2J$41d79bf3-5173-47ed-ad06-babf8e73b371
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8µŠœšŠ2J$041befed-ee82-4f0a-b2ac-dbbe29fb61b7
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8µŠœšŠ2J$dd1e5e97-95b3-4aaf-adf9-5c571d659c41
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8µŠœšŠ2J$48ffe6fd-01bf-4819-8960-c019f9dd58ed
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8µŠœšŠ2J$86017223-8ad2-49ba-809c-182797812818
+r	java:S106+"+Replace this use of System.out by a logger.(Ù÷İÈıÿÿÿÿ8½ŠœšŠ2J$6b127cde-d6ed-491a-b94c-0a04f2b46058
+m	java:S106-"+Replace this use of System.out by a logger.(øŸ‰°8½ŠœšŠ2J$ac504f72-3215-4b64-8b74-b97b924b4ddb
+r	java:S106/"+Replace this use of System.out by a logger.(ÂôÜ•ÿÿÿÿÿ8¾ŠœšŠ2J$a745c3b8-1776-4bf5-8bb7-690c1dc7c10d
+œ
+java:S6204F"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(À×îøÿÿÿÿ8ı‚®Š2
