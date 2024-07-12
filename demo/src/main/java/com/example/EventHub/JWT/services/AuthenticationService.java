@@ -2,6 +2,7 @@ package com.example.EventHub.JWT.services;
 
 import com.example.EventHub.JWT.dtos.LoginUserDto;
 import com.example.EventHub.JWT.dtos.RegisterUserDto;
+import com.example.EventHub.Role.Role;
 import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,14 +29,23 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User signup(RegisterUserDto input) {
+    public User signupUser(RegisterUserDto input) {
         User user = new User();
         user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
-
+        user.setRole(Role.USER);
         return userRepository.save(user);
     }
+    public User signupManager(RegisterUserDto input) {
+        User user = new User();
+        user.setFullName(input.getFullName());
+        user.setEmail(input.getEmail());
+        user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setRole(Role.MANAGER);
+        return userRepository.save(user);
+    }
+
 
     public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(

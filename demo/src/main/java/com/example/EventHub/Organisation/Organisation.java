@@ -16,8 +16,6 @@ public class Organisation {
     @NotEmpty(message = "Please enter the name of the organisation!")
     @Column(name = "organisation_name")
     private String organisationName;
-    @OneToOne
-    private User userId;
 
     public Integer getId() {
         return id;
