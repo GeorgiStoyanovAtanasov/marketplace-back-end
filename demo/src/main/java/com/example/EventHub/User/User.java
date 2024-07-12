@@ -1,100 +1,103 @@
+
 package com.example.EventHub.User;
 
 import com.example.EventHub.Event.Event;
 import com.example.EventHub.Role.Role;
 import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
-
-@Entity
+@Data
 @Table(name = "users")
-public class User {
+@Entity
+public class User implements UserDetails {
     @Id
-    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(nullable = false)
+    private Integer id;
 
-    private String username;
+    @Column(nullable = false)
+    private String fullName;
 
+    @Column(unique = true, length = 100, nullable = false)
     private String email;
 
-    private String firstName;
-
-    private String lastName;
-
+    @Column(nullable = false)
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+    @Enumerated(EnumType.STRING)
     private Role role;
+
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
 
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
-    private boolean enabled=true;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public Role getRole() {
-        return role;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+
+
+
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
+

@@ -136,7 +136,7 @@ public class EventController {
     public String apply(@RequestParam(name = "eventId") Integer id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        User user = userRepository.getUserByUsername(username);
+        User user = userRepository.findByFullName(username).get();
         Event event = eventRepository.findById(id).get();
         List<Event> events = user.getEvents();
         for (Event listEvent : events) {

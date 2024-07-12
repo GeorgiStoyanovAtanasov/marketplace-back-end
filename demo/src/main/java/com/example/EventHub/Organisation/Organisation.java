@@ -1,10 +1,10 @@
 package com.example.EventHub.Organisation;
 
 
+import com.example.EventHub.User.User;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotEmpty;
-import org.springframework.stereotype.Service;
 
 
 @Entity
@@ -16,6 +16,8 @@ public class Organisation {
     @NotEmpty(message = "Please enter the name of the organisation!")
     @Column(name = "organisation_name")
     private String organisationName;
+    @OneToOne
+    private User userId;
 
     public Integer getId() {
         return id;

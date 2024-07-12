@@ -1,11 +1,24 @@
 package com.example.EventHub.User;
 
+
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
-    public boolean ifTwoPasswordsMatch(String pass1, String pass2){
-        return pass1.equals(pass2);
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
+    public List<User> allUsers() {
+        List<User> users = new ArrayList<>();
+
+        userRepository.findAll().forEach(users::add);
+
+        return users;
+    }
 }

@@ -1,66 +1,38 @@
 package com.example.EventHub.User;
 
-import com.example.EventHub.Role.RoleRepository;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import com.example.EventHub.User.User;
+import com.example.EventHub.User.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RequestMapping("/users")
+@RestController
 public class UserController {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    UserService userService;
-    @Autowired
-    UserMapper userMapper;
+    private final UserService userService;
 
-    @GetMapping("/registration")
-    public String addUser(Model model) {
-        model.addAttribute("userDTO", new UserDTO());
-        model.addAttribute("roles", roleRepository.findAll());
-        return "registration";
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping("/registration/submit")
-    public String postRegister(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("roles", roleRepository.findAll());
-            return "registration";
-        }
-        User userForSeeIfUsernameExist = userRepository.getUserByUsername(userDTO.getUsername());
-        if (userForSeeIfUsernameExist != null) {
-            model.addAttribute("userExistMessage", "This username already exists!");
-            model.addAttribute("roles", roleRepository.findAll());
-            return "registration";
-        }
+    @GetMapping("/me")
+    public ResponseEntity<User> authenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        User userForSeeIfEmailExist = userRepository.getUserByEmail(userDTO.getEmail());
-        if (userForSeeIfEmailExist != null) {
-            model.addAttribute("emailExistMessage", "This email already exists!");
-            model.addAttribute("roles", roleRepository.findAll());
-            return "registration";
-        }
+        User currentUser = (User) authentication.getPrincipal();
 
-        if (!userService.ifTwoPasswordsMatch(userDTO.getPassword(), userDTO.getConfirmPassword())) {
-            model.addAttribute("passwordsDoNotMatch", "Passwords do not match!");
-            model.addAttribute("roles", roleRepository.findAll());
-            return "registration";
-        }
-        User user = userMapper.toEntity(userDTO);
-        if(user.getRole() == null){
-            return "registration";
-        }
-        else {
-            model.addAttribute("user", user);
-            userRepository.save(user);
-            return "login";
-        }
+        return ResponseEntity.ok(currentUser);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<User>> allUsers() {
+        List <User> users = userService.allUsers();
+
+        return ResponseEntity.ok(users);
     }
 }
