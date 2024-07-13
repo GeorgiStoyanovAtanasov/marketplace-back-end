@@ -1,0 +1,10 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÛÎëš
+k
+java:S3655-"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ö¤ó¨øÿÿÿÿ
+k
+java:S3655"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ö¤ó¨øÿÿÿÿ
+k
+java:S3655"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(Ö¤ó¨øÿÿÿÿ
+X
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ
