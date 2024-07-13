@@ -28,7 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@Controller
+@RestController
 @RequestMapping("/event")
 public class EventController {
     @Autowired
