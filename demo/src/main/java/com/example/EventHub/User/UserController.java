@@ -1,23 +1,35 @@
 package com.example.EventHub.User;
 
-import com.example.EventHub.User.User;
-import com.example.EventHub.User.UserService;
+import com.example.EventHub.JWT.services.JwtService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
 
-@RequestMapping("/users")
+//@GetMapping("/users")
 @RestController
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private JwtService jwtService;
 
-    public UserController(UserService userService) {
+    @Autowired
+    public UserController(UserService userService, UserRepository userRepository, UserMapper userMapper, JwtService jwtService) {
         this.userService = userService;
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.jwtService = jwtService;
     }
 
     @GetMapping("/me")
@@ -31,8 +43,13 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<User>> allUsers() {
-        List <User> users = userService.allUsers();
+        List<User> users = userService.allUsers();
 
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/users/roles")
+    public ResponseEntity<List<String>> getRoles(String token){
+        return ResponseEntity.ok(jwtService.extractRoles(token));
     }
 }

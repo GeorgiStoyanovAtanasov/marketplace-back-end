@@ -1,0 +1,42 @@
+
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8Ó°ì§‹2
+s
+java:S3655‹"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¬í«Şüÿÿÿÿ8³±ì§‹2
+n
+java:S3655Œ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ã±ì§‹2
+m
+java:S11924"KDefine a constant instead of duplicating this literal "eventTypes" 4 times.(°ˆááüÿÿÿÿ8ä±ì§‹2
+m
+java:S11926"KDefine a constant instead of duplicating this literal "event-form" 3 times.(Ñ¢°Úÿÿÿÿÿ8ä±ì§‹2
+k
+java:S11925"NDefine a constant instead of duplicating this literal "organisations" 3 times.(°÷¬8å±ì§‹2
+h
+java:S1192H"FDefine a constant instead of duplicating this literal "event" 4 times.(á·ÿùÿÿÿÿ8å±ì§‹2
+_
+java:S6813""BRemove this field injection and use constructor injection instead.(êæÄŞ8å±ì§‹2
+_
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8å±ì§‹2
+_
+java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8å±ì§‹2
+_
+java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞ8é±ì§‹2
+_
+java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8²ì§‹2
+_
+java:S6813,"BRemove this field injection and use constructor injection instead.(êæÄŞ8²ì§‹2
+_
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8²ì§‹2
+
+java:S1130:"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(İş¬8ı²ì§‹2
+B
+java:S1452N"&Remove usage of generic wildcard type.(öÑÅ8³ì§‹2
+–
+java:S6204V"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎİ~8¡³ì§‹2
+c
+java:S1128"ARemove this unused import 'org.springframework.data.domain.Page'.(˜âüÿÿÿÿ8É³ì§‹2
+g
+java:S1128"ERemove this unused import 'org.springframework.data.domain.PageImpl'.(è”—şÿÿÿÿ8É³ì§‹2
+g
+java:S1128"ERemove this unused import 'org.springframework.data.domain.Pageable'.(‡ë‚Öıÿÿÿÿ8Ê³ì§‹2
+h
+java:S1128"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8Ê³ì§‹2

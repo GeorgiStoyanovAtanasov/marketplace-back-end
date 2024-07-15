@@ -2,6 +2,7 @@ package com.example.EventHub.JWT.services;
 
 import com.example.EventHub.JWT.dtos.LoginUserDto;
 import com.example.EventHub.JWT.dtos.RegisterUserDto;
+import com.example.EventHub.Role.Role;
 import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +34,7 @@ public class AuthenticationService {
         user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
-
+        user.setRole(Role.USER);
         return userRepository.save(user);
     }
 
