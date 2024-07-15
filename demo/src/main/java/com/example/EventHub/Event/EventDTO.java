@@ -33,6 +33,7 @@ public class EventDTO {
     private MultipartFile file;
     private OrganisationDTO organisationDTO;
     private EventTypeDTO eventTypeDTO;
+    private EventStatus eventStatus;
 
 
     public EventDTO() {
@@ -150,6 +151,14 @@ public class EventDTO {
 
     public void setEventTypeDTO(EventTypeDTO eventTypeDTO) {
         this.eventTypeDTO = eventTypeDTO;
+    }
+
+    public EventStatus getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(EventStatus eventStatus) {
+        this.eventStatus = eventStatus;
     }
 }
 

@@ -1,14 +1,19 @@
 
-u	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(óçâ{8µ±šŠ2
-b
-java:S1192"FDefine a constant instead of duplicating this literal "roles" 5 times.(È«¼|8¡µ±šŠ2
-o
-java:S1192"MDefine a constant instead of duplicating this literal "registration" 6 times.(Š“‘øÿÿÿÿ8¡µ±šŠ2
-_
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2
-_
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2
-_
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2
-_
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8¢µ±šŠ2
+›	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(óçâ{8ï‰“‹2J$4a59a4dd-cc9d-48eb-a1ec-2019f66f19af
+†
+java:S1128"DRemove this unused import 'jakarta.servlet.http.HttpServletRequest'.(õ38‹ª£“‹2J$108b53eb-1736-411a-aca7-a2a88c05b64c
+
+java:S1128"=Remove this unused import 'jakarta.servlet.http.HttpSession'.(Çê°8Œª£“‹2J$ed6407c7-160c-47fe-b3fc-f5efb642e5b6
+
+java:S1128
+"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8Œª£“‹2J$8a5621d5-2133-4c76-9e0b-376c733026f0
+–
+java:S1128"SRemove this unused import 'org.springframework.web.bind.annotation.RequestMapping'.(ö»¿ë8ª£“‹2J$9450f733-1afe-4aa8-936f-5120960c77f1
+œ
+java:S1128"YRemove this unused import 'org.springframework.web.context.request.RequestContextHolder'.(ºãê8ª£“‹2J$891bf224-ce22-4e20-86ba-9590363c15b1
+ 
+java:S1128"]Remove this unused import 'org.springframework.web.context.request.ServletRequestAttributes'.(şĞ‘Ÿ8ª£“‹2J$5e8b610f-a42d-4d07-b4f2-96e9bd1a3d28
+u
+java:S1068"2Remove this unused "userRepository" private field.(¼²Æ÷8­ï‰“‹2J$cfcfa187-0e4d-4018-bfe9-c1f09ec0ec22
+q
+java:S1068".Remove this unused "userMapper" private field.(áç÷8­ï‰“‹2J$c18a0822-981c-4c6b-8f7b-5be07734789b

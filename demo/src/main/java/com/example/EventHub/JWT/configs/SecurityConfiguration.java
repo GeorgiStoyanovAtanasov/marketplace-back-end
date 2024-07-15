@@ -14,6 +14,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+import static org.springframework.security.authorization.AuthorityAuthorizationManager.hasAnyAuthority;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -35,7 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().hasAnyAuthority("USER", "ROLE_USER", "ADMIN", "ROLE_ADMIN")//.anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
