@@ -1,10 +1,14 @@
 package com.example.EventHub.Event;
 
 import com.example.EventHub.EventStatus.EventStatus;
+import com.example.EventHub.EventType.EventType;
+import com.example.EventHub.EventType.EventTypeDTO;
+import com.example.EventHub.EventType.EventTypeMapper;
 import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,8 +17,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -24,6 +28,10 @@ public class EventService {
     EventTypeRepository eventTypeRepository;
     @Autowired
     OrganisationRepository organisationRepository;
+    @Autowired
+    EventMapper eventMapper;
+    @Autowired
+    EventTypeMapper eventTypeMapper;
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate localDate = LocalDate.now();
 
@@ -75,13 +83,12 @@ public class EventService {
         return "event-delete";
     }
 
-    public String searchEvents(String name,
-                               String place,
-                               Integer type,
-                               String date,
-                               Double minPrice,
-                               Double maxPrice,
-                               Model model) {
+    public ResponseEntity<Map<String, List<?>>> searchEvents(String name,
+                                                             String place,
+                                                             Integer type,
+                                                             String date,
+                                                             Double minPrice,
+                                                             Double maxPrice) {
 
         if (place == null) {
             place = "";
@@ -102,9 +109,19 @@ public class EventService {
             minPrice = maxPrice1;
         }
 
-        model.addAttribute("allEvents", eventRepository.findByPlaceTypeDateAndPrice(name, place, type, date, minPrice, maxPrice));
-        model.addAttribute("allTypes", eventTypeRepository.findAll());
-        return "all-events";
+        List<Event> events = eventRepository.findByPlaceTypeDateAndPrice(name, place, type, date, minPrice, maxPrice);
+        List<EventDTO> eventDTOs = new ArrayList<>();
+        for (int i = 0; i < events.size(); i++) {
+            eventDTOs.add(eventMapper.toDTO(events.get(i)));
+        }
+        List<EventType> allTypes = (List<EventType>) eventTypeRepository.findAll();
+        List<EventTypeDTO> eventTypeDTOs = allTypes.stream().map(eventTypeMapper::toDTO).collect(Collectors.toList());
+
+        Map<String, List<?>> response = new HashMap<>();
+        response.put("events", eventDTOs);
+        response.put("eventTypes", eventTypeDTOs);
+
+        return ResponseEntity.ok(response);
     }
 
 
