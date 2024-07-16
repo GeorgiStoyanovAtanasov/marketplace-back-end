@@ -8,6 +8,7 @@ import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.User.UserRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
 import com.example.EventHub.User.User;
+import feign.Response;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -106,14 +107,13 @@ public class EventController {
     }
 
     @GetMapping("/search")
-    public String searchEvents(@RequestParam(name = "name", required = false) String name,
-                               @RequestParam(name = "place", required = false) String place,
-                               @RequestParam(name = "type", required = false) Integer type,
-                               @RequestParam(name = "date", required = false) String date,
-                               @RequestParam(name = "minPrice", required = false) Double minPrice,
-                               @RequestParam(name = "maxPrice", required = false) Double maxPrice,
-                               Model model) {
-        return eventService.searchEvents(name, place, type, date, minPrice, maxPrice, model);
+    public ResponseEntity<Map<String, List<?>>> searchEvents(@RequestParam(name = "name", required = false) String name,
+                                                             @RequestParam(name = "place", required = false) String place,
+                                                             @RequestParam(name = "type", required = false) Integer type,
+                                                             @RequestParam(name = "date", required = false) String date,
+                                                             @RequestParam(name = "minPrice", required = false) Double minPrice,
+                                                             @RequestParam(name = "maxPrice", required = false) Double maxPrice) {
+        return eventService.searchEvents(name, place, type, date, minPrice, maxPrice);
     }
 
     @GetMapping("/update")

@@ -1,42 +1,46 @@
 
-{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8Ó°ì§‹2
-s
-java:S3655‹"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¬í«Şüÿÿÿÿ8³±ì§‹2
-n
-java:S3655Œ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ã±ì§‹2
-m
-java:S11924"KDefine a constant instead of duplicating this literal "eventTypes" 4 times.(°ˆááüÿÿÿÿ8ä±ì§‹2
-m
-java:S11926"KDefine a constant instead of duplicating this literal "event-form" 3 times.(Ñ¢°Úÿÿÿÿÿ8ä±ì§‹2
-k
-java:S11925"NDefine a constant instead of duplicating this literal "organisations" 3 times.(°÷¬8å±ì§‹2
-h
-java:S1192H"FDefine a constant instead of duplicating this literal "event" 4 times.(á·ÿùÿÿÿÿ8å±ì§‹2
-_
-java:S6813""BRemove this field injection and use constructor injection instead.(êæÄŞ8å±ì§‹2
-_
-java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8å±ì§‹2
-_
-java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8å±ì§‹2
-_
-java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞ8é±ì§‹2
-_
-java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8²ì§‹2
-_
-java:S6813,"BRemove this field injection and use constructor injection instead.(êæÄŞ8²ì§‹2
-_
-java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8²ì§‹2
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8ƒÁòÒ‹2J$77d2da45-5f46-49bc-96c4-17f486068bc3
+”
+java:S3655Œ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ƒÁòÒ‹2J$bb5963b3-87d4-4e39-a19a-b6f830c635ad
+™
+java:S3655‹"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¬í«Şüÿÿÿÿ8„ÁòÒ‹2J$e23da053-6c31-4139-adee-12f2084653bd
+“
+java:S11925"KDefine a constant instead of duplicating this literal "eventTypes" 4 times.(°ˆááüÿÿÿÿ8„ÁòÒ‹2J$5d692f6c-f191-49d4-85e2-198e8b6975b0
+“
+java:S11927"KDefine a constant instead of duplicating this literal "event-form" 3 times.(Ñ¢°Úÿÿÿÿÿ8„ÁòÒ‹2J$9a73e7ae-6ac0-4dae-bfda-07853cb74e66
+‘
+java:S11926"NDefine a constant instead of duplicating this literal "organisations" 3 times.(°÷¬8…ÁòÒ‹2J$d2b2cfcd-744f-4ae5-aa33-6a66f5d3b228
 
-java:S1130:"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(İş¬8ı²ì§‹2
-B
-java:S1452N"&Remove usage of generic wildcard type.(öÑÅ8³ì§‹2
-–
-java:S6204V"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎİ~8¡³ì§‹2
-c
-java:S1128"ARemove this unused import 'org.springframework.data.domain.Page'.(˜âüÿÿÿÿ8É³ì§‹2
-g
-java:S1128"ERemove this unused import 'org.springframework.data.domain.PageImpl'.(è”—şÿÿÿÿ8É³ì§‹2
-g
-java:S1128"ERemove this unused import 'org.springframework.data.domain.Pageable'.(‡ë‚Öıÿÿÿÿ8Ê³ì§‹2
+java:S1192I"FDefine a constant instead of duplicating this literal "event" 4 times.(á·ÿùÿÿÿÿ8…ÁòÒ‹2J$7b240c9a-7612-4a61-bac6-1e2d3c0e2d6b
+…
+java:S6813#"BRemove this field injection and use constructor injection instead.(êæÄŞ8…ÁòÒ‹2J$5174a18b-522a-4614-8fae-967af317d8d5
+…
+java:S6813%"BRemove this field injection and use constructor injection instead.(êæÄŞ8…ÁòÒ‹2J$19886e01-f869-45f7-9894-800fedd55737
+…
+java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$62895929-7a45-46e5-925b-45ac596f8b82
+…
+java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$a0a2c3ba-f28a-4fbb-b867-78f13dce3f27
+…
+java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$8bd3e58c-a826-4031-80b2-1a6b89cec087
+…
+java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$9c5b12ef-ad0c-4025-82b4-e07c3e5a7f1c
+…
+java:S6813/"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$430379fc-69c4-47e2-bdb2-0c9907d88a54
+´
+java:S1130;"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(İş¬8†ÁòÒ‹2J$ddc15d77-3176-4b85-bdec-47eebfdca4c1
 h
-java:S1128"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8Ê³ì§‹2
+java:S1452O"&Remove usage of generic wildcard type.(öÑÅ8†ÁòÒ‹2J$7b88922b-e4db-4dd0-bbff-2aa6f54a76a7
+¼
+java:S6204W"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎİ~8†ÁòÒ‹2J$346ae1c8-28e2-43eb-8287-59165b540ce8
+i
+java:S1452n"&Remove usage of generic wildcard type.(Ğ†¸À8†ÁòÒ‹2J$f73683b3-684a-4746-b95c-ca2b09cc0089
+M
+java:S1128"+Remove this unused import 'feign.Response'.(…âÇÓüÿÿÿÿ8İÕ¿Ó‹2
+c
+java:S1128"ARemove this unused import 'org.springframework.data.domain.Page'.(˜âüÿÿÿÿ8İÕ¿Ó‹2
+g
+java:S1128"ERemove this unused import 'org.springframework.data.domain.PageImpl'.(è”—şÿÿÿÿ8İÕ¿Ó‹2
+g
+java:S1128"ERemove this unused import 'org.springframework.data.domain.Pageable'.(‡ë‚Öıÿÿÿÿ8İÕ¿Ó‹2
+h
+java:S1128"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8İÕ¿Ó‹2

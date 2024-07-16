@@ -1,0 +1,27 @@
+
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìžä¿øÿÿÿÿ8ü£ÞÒ‹2J$d11a32a0-6aaf-4c43-8296-c03e650d4a0e
+“
+java:S3655)"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ý£ÞÒ‹2J$09c1cdee-dbd7-44c7-9e8d-e2f079524887
+“
+java:S36559"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ý£ÞÒ‹2J$844935d4-f8c5-4674-bdf0-78d0f5fa2201
+“
+java:S3655P"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ý£ÞÒ‹2J$b0f66bc7-8e6d-4070-ab10-dbaa93cff644
+“
+java:S1192*"KDefine a constant instead of duplicating this literal "eventTypes" 3 times.(°ˆááüÿÿÿÿ8©õèÒ‹2J$194b2175-bbf1-4815-a3be-ace14879847a
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8ý£ÞÒ‹2J$1b9f5deb-0f40-4740-b6ba-8061a3df5360
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8ý£ÞÒ‹2J$bd23b94b-6310-447d-bf2c-ff95fdf5837d
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8ý£ÞÒ‹2J$493a782e-fb5b-4183-a34a-ea85d7d9dee6
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8þ£ÞÒ‹2J$35eef768-45fa-4898-83c0-1a651e89c19b
+…
+java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄÞ8þ£ÞÒ‹2J$2e0e519c-9caa-4bc9-9d63-8b568be06977
+i
+java:S1452V"&Remove usage of generic wildcard type.(ýáÁŸ8ÑÍêÒ‹2J$00327dd8-c883-4b45-b837-30621ce664e6
+¼
+java:S6204v"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎÝ~8þ£ÞÒ‹2J$0c11650d-6def-4660-900e-8f23ee2b1e92
+n	java:S106‰"+Replace this use of System.out by a logger.(Ú×«Ó8þ£ÞÒ‹2J$924398ba-5189-4c3d-9960-86aab35f4f15
+Œ
+java:S1128"IRemove this unused import 'com.example.EventHub.EventStatus.EventStatus'.(–¶ºå8ÑÍêÒ‹2J$d7970d28-a909-4581-9a75-c311f9b63ad7
