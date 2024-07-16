@@ -1,46 +1,48 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8ƒÁòÒ‹2J$77d2da45-5f46-49bc-96c4-17f486068bc3
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìä¿øÿÿÿÿ8ŒïÓ‹2J$2afa0556-19b3-4049-8c76-7111e346428e
 ”
-java:S3655Œ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ƒÁòÒ‹2J$bb5963b3-87d4-4e39-a19a-b6f830c635ad
+java:S3655Œ"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ŒïÓ‹2J$489b9301-651e-4957-b94f-f95e470a198e
 ™
-java:S3655‹"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¬í«Şüÿÿÿÿ8„ÁòÒ‹2J$e23da053-6c31-4139-adee-12f2084653bd
+java:S3655‹"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(¬í«Şüÿÿÿÿ8ŒïÓ‹2J$d9494591-acaa-41a2-8f58-503fc240961a
 “
-java:S11925"KDefine a constant instead of duplicating this literal "eventTypes" 4 times.(°ˆááüÿÿÿÿ8„ÁòÒ‹2J$5d692f6c-f191-49d4-85e2-198e8b6975b0
+java:S11926"KDefine a constant instead of duplicating this literal "eventTypes" 4 times.(°ˆááüÿÿÿÿ8ŒïÓ‹2J$ad42b77e-c575-4508-a8f9-204b82865a30
 “
-java:S11927"KDefine a constant instead of duplicating this literal "event-form" 3 times.(Ñ¢°Úÿÿÿÿÿ8„ÁòÒ‹2J$9a73e7ae-6ac0-4dae-bfda-07853cb74e66
+java:S11928"KDefine a constant instead of duplicating this literal "event-form" 3 times.(Ñ¢°Úÿÿÿÿÿ8ŒïÓ‹2J$d68854f6-1189-454f-810e-37e570a682ca
 ‘
-java:S11926"NDefine a constant instead of duplicating this literal "organisations" 3 times.(°÷¬8…ÁòÒ‹2J$d2b2cfcd-744f-4ae5-aa33-6a66f5d3b228
+java:S11927"NDefine a constant instead of duplicating this literal "organisations" 3 times.(°÷¬8ŒïÓ‹2J$11750ce9-723f-4b87-8dcb-e335c816388e
 
-java:S1192I"FDefine a constant instead of duplicating this literal "event" 4 times.(á·ÿùÿÿÿÿ8…ÁòÒ‹2J$7b240c9a-7612-4a61-bac6-1e2d3c0e2d6b
+java:S1192J"FDefine a constant instead of duplicating this literal "event" 4 times.(á·ÿùÿÿÿÿ8ŒïÓ‹2J$33210f3a-8f8b-4ddd-be67-e4c55d41e10b
 …
-java:S6813#"BRemove this field injection and use constructor injection instead.(êæÄŞ8…ÁòÒ‹2J$5174a18b-522a-4614-8fae-967af317d8d5
+java:S6813$"BRemove this field injection and use constructor injection instead.(êæÄŞ8ŒïÓ‹2J$1bfcfea2-bbee-49ed-8bcd-877021d5c9fc
 …
-java:S6813%"BRemove this field injection and use constructor injection instead.(êæÄŞ8…ÁòÒ‹2J$19886e01-f869-45f7-9894-800fedd55737
+java:S6813&"BRemove this field injection and use constructor injection instead.(êæÄŞ8ŒïÓ‹2J$01623801-49cb-4746-a5f7-d364e7b77044
 …
-java:S6813'"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$62895929-7a45-46e5-925b-45ac596f8b82
+java:S6813("BRemove this field injection and use constructor injection instead.(êæÄŞ8ŒïÓ‹2J$76d48d5c-6570-42f8-95c1-6fccc641a045
 …
-java:S6813)"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$a0a2c3ba-f28a-4fbb-b867-78f13dce3f27
+java:S6813*"BRemove this field injection and use constructor injection instead.(êæÄŞ8ŒïÓ‹2J$aca0bb65-8ab3-4e60-bfe1-5143c5404569
 …
-java:S6813+"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$8bd3e58c-a826-4031-80b2-1a6b89cec087
+java:S6813,"BRemove this field injection and use constructor injection instead.(êæÄŞ8ŒïÓ‹2J$c51ea5d8-c1ba-4efb-ac24-ad9d80457ac3
 …
-java:S6813-"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$9c5b12ef-ad0c-4025-82b4-e07c3e5a7f1c
+java:S6813."BRemove this field injection and use constructor injection instead.(êæÄŞ8ŒïÓ‹2J$11d75445-1918-4932-b5a2-2668c7b2af8e
 …
-java:S6813/"BRemove this field injection and use constructor injection instead.(êæÄŞ8†ÁòÒ‹2J$430379fc-69c4-47e2-bdb2-0c9907d88a54
+java:S68130"BRemove this field injection and use constructor injection instead.(êæÄŞ8ŒïÓ‹2J$f2b38772-a717-4198-8d24-f7808ed339b9
 ´
-java:S1130;"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(İş¬8†ÁòÒ‹2J$ddc15d77-3176-4b85-bdec-47eebfdca4c1
+java:S1130<"qRemove the declaration of thrown exception 'java.text.ParseException', as it cannot be thrown from method's body.(İş¬8ŒïÓ‹2J$24ecfa9c-b227-4027-b580-368945ed82f7
 h
-java:S1452O"&Remove usage of generic wildcard type.(öÑÅ8†ÁòÒ‹2J$7b88922b-e4db-4dd0-bbff-2aa6f54a76a7
+java:S1452P"&Remove usage of generic wildcard type.(öÑÅ8ŒïÓ‹2J$38dc3cbb-1129-4a4c-99b6-bd9a5d8b6f6a
 ¼
-java:S6204W"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎİ~8†ÁòÒ‹2J$346ae1c8-28e2-43eb-8287-59165b540ce8
+java:S6204X"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎİ~8ŒïÓ‹2J$7cdd8e7a-5cc8-4492-9111-8a9047d45c2c
 i
-java:S1452n"&Remove usage of generic wildcard type.(Ğ†¸À8†ÁòÒ‹2J$f73683b3-684a-4746-b95c-ca2b09cc0089
+java:S1452o"&Remove usage of generic wildcard type.(Ğ†¸À8ŒïÓ‹2J$92ebeb76-5cae-41d9-9f4c-7af886cb0575
 M
-java:S1128"+Remove this unused import 'feign.Response'.(…âÇÓüÿÿÿÿ8İÕ¿Ó‹2
+java:S1128"+Remove this unused import 'feign.Response'.(…âÇÓüÿÿÿÿ8Œ­ßÔ‹2
 c
-java:S1128"ARemove this unused import 'org.springframework.data.domain.Page'.(˜âüÿÿÿÿ8İÕ¿Ó‹2
+java:S1128"ARemove this unused import 'org.springframework.data.domain.Page'.(˜âüÿÿÿÿ8Œ­ßÔ‹2
 g
-java:S1128"ERemove this unused import 'org.springframework.data.domain.PageImpl'.(è”—şÿÿÿÿ8İÕ¿Ó‹2
+java:S1128"ERemove this unused import 'org.springframework.data.domain.PageImpl'.(è”—şÿÿÿÿ8Œ­ßÔ‹2
 g
-java:S1128"ERemove this unused import 'org.springframework.data.domain.Pageable'.(‡ë‚Öıÿÿÿÿ8İÕ¿Ó‹2
+java:S1128"ERemove this unused import 'org.springframework.data.domain.Pageable'.(‡ë‚Öıÿÿÿÿ8Œ­ßÔ‹2
 h
-java:S1128"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8İÕ¿Ó‹2
+java:S1128"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8Œ­ßÔ‹2
+w
+java:S1128"URemove this unused import 'org.springframework.transaction.annotation.Transactional'.(ğùçøùÿÿÿÿ8­ßÔ‹2
