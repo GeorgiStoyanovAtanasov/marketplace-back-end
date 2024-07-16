@@ -1,27 +1,27 @@
 
-¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìžä¿øÿÿÿÿ8ü£ÞÒ‹2J$d11a32a0-6aaf-4c43-8296-c03e650d4a0e
+¡	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ìžä¿øÿÿÿÿ8÷ßÉÔ‹2J$8e3c437f-7cda-4163-8492-ea0d72f735bb
 “
-java:S3655)"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ý£ÞÒ‹2J$09c1cdee-dbd7-44c7-9e8d-e2f079524887
+java:S3655:"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8÷ßÉÔ‹2J$6b924a06-442d-42d5-a476-0fd6f3d8f61c
 “
-java:S36559"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ý£ÞÒ‹2J$844935d4-f8c5-4674-bdf0-78d0f5fa2201
+java:S3655*"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8÷ßÉÔ‹2J$6ca15be9-46c1-4218-b08f-b64cf8259ba4
 “
-java:S3655P"PCall "Optional#isPresent()" or "!Optional#isEmpty()" before accessing the value.(ä’µä8ý£ÞÒ‹2J$b0f66bc7-8e6d-4070-ab10-dbaa93cff644
-“
-java:S1192*"KDefine a constant instead of duplicating this literal "eventTypes" 3 times.(°ˆááüÿÿÿÿ8©õèÒ‹2J$194b2175-bbf1-4815-a3be-ace14879847a
+java:S1192+"KDefine a constant instead of duplicating this literal "eventTypes" 3 times.(°ˆááüÿÿÿÿ8÷ßÉÔ‹2J$ee0e8650-8a4c-4882-9827-36f363516367
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8ý£ÞÒ‹2J$1b9f5deb-0f40-4740-b6ba-8061a3df5360
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8÷ßÉÔ‹2J$76105029-d38b-438d-ae27-c6e677f6c6b4
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8ý£ÞÒ‹2J$bd23b94b-6310-447d-bf2c-ff95fdf5837d
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8÷ßÉÔ‹2J$c44b8ccc-91ed-491c-8b99-d8e31a909646
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8ý£ÞÒ‹2J$493a782e-fb5b-4183-a34a-ea85d7d9dee6
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8÷ßÉÔ‹2J$68fb7a3c-84b5-4132-956a-399f7995b6b7
 …
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄÞ8þ£ÞÒ‹2J$35eef768-45fa-4898-83c0-1a651e89c19b
+java:S6813 "BRemove this field injection and use constructor injection instead.(êæÄÞ8÷ßÉÔ‹2J$fc33ef84-40b9-4fff-b813-11cb5a93b665
 …
-java:S6813!"BRemove this field injection and use constructor injection instead.(êæÄÞ8þ£ÞÒ‹2J$2e0e519c-9caa-4bc9-9d63-8b568be06977
+java:S6813""BRemove this field injection and use constructor injection instead.(êæÄÞ8÷ßÉÔ‹2J$1c226bd5-c612-456d-80e1-c9d15a96af33
 i
-java:S1452V"&Remove usage of generic wildcard type.(ýáÁŸ8ÑÍêÒ‹2J$00327dd8-c883-4b45-b837-30621ce664e6
+java:S1452X"&Remove usage of generic wildcard type.(ýáÁŸ8÷ßÉÔ‹2J$57844b2e-3540-45f1-9997-fd3aea113d72
 ¼
-java:S6204v"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎÝ~8þ£ÞÒ‹2J$0c11650d-6def-4660-900e-8f23ee2b1e92
-n	java:S106‰"+Replace this use of System.out by a logger.(Ú×«Ó8þ£ÞÒ‹2J$924398ba-5189-4c3d-9960-86aab35f4f15
+java:S6204x"zReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()' and ensure that the list is unmodified.(ØÎÝ~8øßÉÔ‹2J$b76476ff-7588-49a9-9128-7b7b275bea7f
+n	java:S106‹"+Replace this use of System.out by a logger.(Ú×«Ó8øßÉÔ‹2J$96e84ac3-0fbb-4ca3-aa57-eab932665098
+Š
+java:S1128"BRemove this unused import 'com.example.EventHub.EventApplication'.(¹©©Úüÿÿÿÿ8øßÉÔ‹2J$1c49e75e-30b9-401e-b3bd-42a989b17c15
 Œ
-java:S1128"IRemove this unused import 'com.example.EventHub.EventStatus.EventStatus'.(–¶ºå8ÑÍêÒ‹2J$d7970d28-a909-4581-9a75-c311f9b63ad7
+java:S1128"IRemove this unused import 'com.example.EventHub.EventStatus.EventStatus'.(–¶ºå8øßÉÔ‹2J$3269241b-003d-43ae-8698-31d8ff7ffd2a

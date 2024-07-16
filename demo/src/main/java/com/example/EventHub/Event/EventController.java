@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -125,10 +126,9 @@ public class EventController {
     public String postUpdatedProduct(@RequestParam("id") Integer id, @Valid @ModelAttribute Event updatedEvent, BindingResult bindingResult, Model model) {
         return eventService.postUpdate(id, updatedEvent, bindingResult, model);
     }
-
-    @PostMapping("/delete")
-    public String delete(@RequestParam("id") Integer id, Model model) {
-        return eventService.delete(id, model);
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam("name") String name) {
+        eventService.delete(name);
     }
 
 

@@ -1,5 +1,6 @@
 package com.example.EventHub.Event;
 
+import com.example.EventHub.EventApplication;
 import com.example.EventHub.EventStatus.EventStatus;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
@@ -76,11 +77,12 @@ public class EventService {
         return event;
     }
 
-    public String delete(Integer id, Model model) {
-        Event event = eventRepository.findById(id).get();
+    public void delete(String name) {
+        Event event = eventRepository.findByName(name);
+        if(event == null){
+            throw new IllegalArgumentException("name cannot be null nigga");
+        }
         eventRepository.delete(event);
-        model.addAttribute("event", event);
-        return "event-delete";
     }
 
     public ResponseEntity<Map<String, List<?>>> searchEvents(String name,
