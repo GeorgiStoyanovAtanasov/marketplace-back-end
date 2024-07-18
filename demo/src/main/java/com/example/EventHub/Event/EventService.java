@@ -156,7 +156,7 @@ public class EventService {
         List<Event> events = user.getEvents();
         for (Event listEvent : events) {
             if (listEvent.equals(event)) {
-                throw new IllegalStateException(); //a custom exception should be created
+                throw new IllegalStateException();
             }
         }
         event.getUsers().add(user);
