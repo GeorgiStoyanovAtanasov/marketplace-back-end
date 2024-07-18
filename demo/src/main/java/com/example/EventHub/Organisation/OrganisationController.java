@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/organisation")
 public class OrganisationController {
     @Autowired
@@ -33,7 +33,6 @@ public class OrganisationController {
     }
     @PostMapping("/add")
     public void addOrganisation(@RequestBody OrganisationDTO organisationDTO, Manager manager){
-
         Organisation organisation = organisationMapper.toEntity(organisationDTO);
         organisationRepository.save(organisation);
         manager.setOrganisation(organisation);
@@ -51,10 +50,9 @@ public class OrganisationController {
         }
     }
     @GetMapping("/all")
-    public String allOrganisations(Model model){
+    public Iterable<Organisation> allOrganisations(){
         Iterable<Organisation> allOrganisations = organisationRepository.findAll();
-        model.addAttribute("allOrganisation", allOrganisations);
-        return "all-organisations";
+        return allOrganisations;
     }
     @GetMapping("/update")
     public String updateOrganisationForm(@RequestParam("id") Integer id, Model model) {
