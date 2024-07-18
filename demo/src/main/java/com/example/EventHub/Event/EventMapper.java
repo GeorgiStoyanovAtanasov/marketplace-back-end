@@ -69,5 +69,6 @@ public class EventMapper {
         eventDTO.setCapacity(event.getCapacity());
         eventDTO.setOrganisation(event.getOrganisation());
         eventDTO.setEventType(event.getEventType());
+        return eventDTO;
     }
 }
