@@ -148,21 +148,6 @@ public class EventService {
         }
         return false;
     }
-    public void apply(@RequestParam(name = "eventId") Integer id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByFullName(username).get();
-        Event event = eventRepository.findById(id).get();
-        List<Event> events = user.getEvents();
-        for (Event listEvent : events) {
-            if (listEvent.equals(event)) {
-                throw new IllegalStateException();
-            }
-        }
-        event.getUsers().add(user);
-        user.getEvents().add(event);
-        userRepository.save(user);
-        eventRepository.save(event);
-    }
+
 
 }
