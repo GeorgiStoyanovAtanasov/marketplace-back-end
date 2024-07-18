@@ -1,0 +1,19 @@
+
+›	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(óçâ{8¹¥’ªŒ2J$304e05cb-638f-498f-975e-099cff8e1646
+†
+java:S1128"DRemove this unused import 'jakarta.servlet.http.HttpServletRequest'.(õ38Ş¥’ªŒ2J$57a2e900-4787-402e-9e5a-d77b95344605
+
+java:S1128"=Remove this unused import 'jakarta.servlet.http.HttpSession'.(Çê°8é¥’ªŒ2J$9940ac96-ae28-4134-a30c-962299db73a3
+
+java:S1128
+"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8ù¥’ªŒ2J$11cdc7b6-1c7b-4ab8-9cda-29d9586d88a9
+–
+java:S1128"SRemove this unused import 'org.springframework.web.bind.annotation.RequestMapping'.(ö»¿ë8ú¥’ªŒ2J$b4547be9-7e17-4a55-9fb6-ddc14d9fc171
+œ
+java:S1128"YRemove this unused import 'org.springframework.web.context.request.RequestContextHolder'.(ºãê8û¥’ªŒ2J$7555bed8-12c2-4a4c-802b-d2b3a0498c23
+ 
+java:S1128"]Remove this unused import 'org.springframework.web.context.request.ServletRequestAttributes'.(şĞ‘Ÿ8ü¥’ªŒ2J$94923c7f-37ce-4847-8cca-94fcb9733af2
+u
+java:S1068"2Remove this unused "userRepository" private field.(¼²Æ÷8ü¥’ªŒ2J$49d7cb9c-6b7e-4352-b9bf-536e622e7439
+q
+java:S1068".Remove this unused "userMapper" private field.(áç÷8ı¥’ªŒ2J$1b9dbed6-0f62-4168-9c0a-01a28854031a

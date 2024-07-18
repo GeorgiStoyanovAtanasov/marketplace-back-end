@@ -117,14 +117,14 @@ public class EventController {
         return eventService.searchEvents(name, place, type, date, minPrice, maxPrice);
     }
 
-    @GetMapping("/update")
-    public String updateProductForm(@RequestParam("id") Integer id, Model model) {
-        return eventService.updateForm(id, model);
-    }
+//    @GetMapping("/update")
+//    public String updateProductForm(@RequestParam("id") Integer id, Model model) {
+//        return eventService.updateForm(id, model);
+//    }
 
     @PostMapping("/update")
-    public String postUpdatedProduct(@RequestParam("id") Integer id, @Valid @ModelAttribute Event updatedEvent, BindingResult bindingResult, Model model) {
-        return eventService.postUpdate(id, updatedEvent, bindingResult, model);
+    public void postUpdatedProduct(@RequestParam("name") String name, @Valid @ModelAttribute EventDTO updatedEventDTO, BindingResult bindingResult) {
+        eventService.postUpdate(name, updatedEventDTO, bindingResult);
     }
     @DeleteMapping("/delete")
     public void delete(@RequestParam("name") String name) {

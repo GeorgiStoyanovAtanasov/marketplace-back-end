@@ -36,30 +36,27 @@ public class EventService {
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate localDate = LocalDate.now();
 
-    public String updateForm(Integer id, Model model) {
-        Optional<Event> optionalEvent = eventRepository.findById(id);
-        if (optionalEvent.isPresent()) {
-            Event event = eventRepository.findById(id).get();
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            model.addAttribute("updateEvent", event);
-            return "event-update-form";
-        } else {
-            return "id could not be find";
-        }
-    }
+//    public String updateForm(Integer id, Model model) {
+//        Optional<Event> optionalEvent = eventRepository.findById(id);
+//        if (optionalEvent.isPresent()) {
+//            Event event = eventRepository.findById(id).get();
+//            model.addAttribute("eventTypes", eventTypeRepository.findAll());
+//            model.addAttribute("organisations", organisationRepository.findAll());
+//            model.addAttribute("updateEvent", event);
+//            return "event-update-form";
+//        } else {
+//            return "id could not be find";
+//        }
+//    }
 
-    public String postUpdate(Integer id, Event updatedEvent, BindingResult bindingResult, Model model) {
+    public void postUpdate(String name, EventDTO updatedEventDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            return "event-update-form";
+            throw new IllegalArgumentException("Invalid input");
         } else {
-            Event event = eventRepository.findById(id).get();
+            Event event = eventRepository.findByName(name);
+            Event  updatedEvent = eventMapper.toEntity(updatedEventDto);
             getEvent(event, updatedEvent);
             eventRepository.save(event);
-            model.addAttribute("event", event);
-            return "event-update-result";
         }
     }
 
