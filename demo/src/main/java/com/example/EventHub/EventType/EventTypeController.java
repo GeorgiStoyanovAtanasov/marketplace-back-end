@@ -19,7 +19,7 @@ public class EventTypeController {
     EventTypeRepository eventTypeRepository;
 
     @PostMapping("/add")
-    public void postProduct(@Valid @ModelAttribute EventType eventType, BindingResult bindingResult, Model model) {
+    public void postProduct(@Valid @ModelAttribute EventType eventType, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new IllegalArgumentException();
         } else {
@@ -27,7 +27,7 @@ public class EventTypeController {
         }
     }
     @GetMapping("/all")
-    public Iterable<EventType> allEventsTypes(Model model){
+    public Iterable<EventType> allEventsTypes(){
         Iterable<EventType> allEventTypes = eventTypeRepository.findAll();
         return allEventTypes;
     }
