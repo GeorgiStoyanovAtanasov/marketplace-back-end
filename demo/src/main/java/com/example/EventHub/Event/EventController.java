@@ -122,7 +122,7 @@ public class EventController {
 //        return eventService.updateForm(id, model);
 //    }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void postUpdatedProduct(@RequestParam("name") String name, @Valid @ModelAttribute EventDTO updatedEventDTO, BindingResult bindingResult) {
         eventService.postUpdate(name, updatedEventDTO, bindingResult);
     }
