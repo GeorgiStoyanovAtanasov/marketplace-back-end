@@ -48,31 +48,16 @@ public class EventController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/add")
-    public String addEvent(Model model) {
-        model.addAttribute("eventDTO", new EventDTO());
-        model.addAttribute("eventTypes", eventTypeRepository.findAll());
-        model.addAttribute("organisations", organisationRepository.findAll());
-        return "event-form";
-    }
-
     @PostMapping("/submit")
-    public String postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult, Model model) throws ParseException {
+    public void postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult)  {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            return "event-form";
+            throw new IllegalArgumentException();
         }
         if (eventService.errorEventStatus(eventDTO)) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            model.addAttribute("notValidDate", "Please enter a valid date!");
-            return "event-form";
+            throw new IllegalArgumentException();
         } else {
             Event event = eventMapper.toEntity(eventDTO);
             eventRepository.save(event);
-            model.addAttribute("event", event);
-            return "home";
         }
     }
 
@@ -131,29 +116,9 @@ public class EventController {
         eventService.delete(name);
     }
 
-
     @PostMapping("/apply")
-    public String apply(@RequestParam(name = "eventId") Integer id, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByFullName(username).get();
-        Event event = eventRepository.findById(id).get();
-        List<Event> events = user.getEvents();
-        for (Event listEvent : events) {
-            if (listEvent.equals(event)) {
-                model.addAttribute("alreadyApplied", "You have already applied for this event!");
-                model.addAttribute("event", event);
-                return "event-details";
-            }
-        }
-        event.getUsers().add(user);
-        user.getEvents().add(event);
-        userRepository.save(user);
-        eventRepository.save(event);
-
-        model.addAttribute("event", event);
-        model.addAttribute("successfullyApplied", "You have successfully applied for the event!");
-        return "event-details";
+    public void apply(@RequestParam(name = "eventId") Integer id) {
+        eventService.apply(id);
     }
 }
 

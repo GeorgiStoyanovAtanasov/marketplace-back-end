@@ -7,12 +7,18 @@ import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
 import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
+import com.example.EventHub.User.User;
+import com.example.EventHub.User.UserRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,6 +39,8 @@ public class EventService {
     EventMapper eventMapper;
     @Autowired
     EventTypeMapper eventTypeMapper;
+    @Autowired
+    UserRepository userRepository;
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate localDate = LocalDate.now();
 
@@ -140,4 +148,21 @@ public class EventService {
         }
         return false;
     }
+    public void apply(@RequestParam(name = "eventId") Integer id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByFullName(username).get();
+        Event event = eventRepository.findById(id).get();
+        List<Event> events = user.getEvents();
+        for (Event listEvent : events) {
+            if (listEvent.equals(event)) {
+                throw new IllegalStateException(); //a custom exception should be created
+            }
+        }
+        event.getUsers().add(user);
+        user.getEvents().add(event);
+        userRepository.save(user);
+        eventRepository.save(event);
+    }
+
 }
