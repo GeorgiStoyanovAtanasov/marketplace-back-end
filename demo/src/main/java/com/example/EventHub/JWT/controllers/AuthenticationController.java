@@ -2,6 +2,8 @@ package com.example.EventHub.JWT.controllers;
 
 import com.example.EventHub.JWT.dtos.LoginUserDto;
 import com.example.EventHub.JWT.dtos.RegisterUserDto;
+import com.example.EventHub.Manager.Manager;
+import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.User.User;
 import com.example.EventHub.JWT.responses.LoginResponse;
 import com.example.EventHub.JWT.services.AuthenticationService;
@@ -14,17 +16,27 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final JwtService jwtService;
     private final AuthenticationService authenticationService;
+    private ManagerRepository managerRepository;
 
     public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
-        User registeredUser = authenticationService.signup(registerUserDto);
+    @PostMapping("/register/user")
+    public ResponseEntity<User> registerUser(@RequestBody RegisterUserDto registerUserDto) {
+        User registeredUser = authenticationService.signupUser(registerUserDto);
 
         return ResponseEntity.ok(registeredUser);
+    }
+
+    @PostMapping("/register/manager")
+    public ResponseEntity<Manager> registerManager(@RequestBody RegisterUserDto registerUserDto) {
+        User registeredUser = authenticationService.signupManager(registerUserDto);
+        Manager manager = new Manager();
+        manager.setUser(registeredUser);
+        managerRepository.save(manager);
+        return ResponseEntity.ok(manager);
     }
 
     @PostMapping("/login")
