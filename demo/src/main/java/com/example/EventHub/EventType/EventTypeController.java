@@ -10,31 +10,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/event-type")
 public class EventTypeController {
     @Autowired
     EventTypeRepository eventTypeRepository;
-    @GetMapping("/add")
-    public String addEvent(Model model){
-        model.addAttribute("eventType", new EventType());
-        model.addAttribute("eventTypes", eventTypeRepository.findAll());
-        return "event-type-form";
-    }
-    @PostMapping("/submit")
-    public String postProduct(@Valid @ModelAttribute EventType eventType, BindingResult bindingResult, Model model) {
+
+    @PostMapping("/add")
+    public void postProduct(@Valid @ModelAttribute EventType eventType, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "event-type-form";
+            throw new IllegalArgumentException();
         } else {
             eventTypeRepository.save(eventType);
-            model.addAttribute("eventType", eventType);
-            return "event-type-result";
         }
     }
     @GetMapping("/all")
-    public String allEvents(Model model){
+    public Iterable<EventType> allEventsTypes(Model model){
         Iterable<EventType> allEventTypes = eventTypeRepository.findAll();
-        model.addAttribute("allEventTypes", allEventTypes);
-        return "all-event-types";
+        return allEventTypes;
     }
 }
