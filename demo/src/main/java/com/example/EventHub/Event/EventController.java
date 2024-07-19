@@ -116,6 +116,9 @@ public class EventController {
         eventService.delete(name);
     }
 
-
+    @PostMapping("/apply")
+    public void apply(@RequestParam(name = "eventId") Integer id) {
+        eventService.apply(id);
+    }
 }
 
