@@ -48,31 +48,16 @@ public class EventController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/add")
-    public String addEvent(Model model) {
-        model.addAttribute("eventDTO", new EventDTO());
-        model.addAttribute("eventTypes", eventTypeRepository.findAll());
-        model.addAttribute("organisations", organisationRepository.findAll());
-        return "event-form";
-    }
-
     @PostMapping("/submit")
-    public String postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult, Model model) throws ParseException {
+    public void postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult)  {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            return "event-form";
+            throw new IllegalArgumentException();
         }
         if (eventService.errorEventStatus(eventDTO)) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            model.addAttribute("notValidDate", "Please enter a valid date!");
-            return "event-form";
+            throw new IllegalArgumentException();
         } else {
             Event event = eventMapper.toEntity(eventDTO);
             eventRepository.save(event);
-            model.addAttribute("event", event);
-            return "home";
         }
     }
 
