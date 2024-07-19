@@ -1,6 +1,7 @@
 package com.example.EventHub.Event;
 
 import com.example.EventHub.EventType.EventTypeDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
