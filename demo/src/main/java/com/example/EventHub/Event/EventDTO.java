@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public class EventDTO {
+    private Integer id;
     @NotEmpty(message = "The name of the event can not be empty!")
     private String name;
     private String date;
@@ -40,6 +41,7 @@ public class EventDTO {
     }
 
     public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, OrganisationDTO dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
+        this.id = id;
         this.name = name;
         this.date = date;
         this.duration = duration;
@@ -159,6 +161,14 @@ public class EventDTO {
 
     public void setEventStatus(EventStatus eventStatus) {
         this.eventStatus = eventStatus;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
 

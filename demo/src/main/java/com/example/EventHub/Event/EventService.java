@@ -5,6 +5,8 @@ import com.example.EventHub.EventStatus.EventStatus;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
+import com.example.EventHub.JWT.services.JwtService;
+import com.example.EventHub.Organisation.Organisation;
 import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
 import com.example.EventHub.User.User;
@@ -41,6 +43,8 @@ public class EventService {
     EventTypeMapper eventTypeMapper;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    JwtService jwtService;
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate localDate = LocalDate.now();
 
@@ -148,20 +152,26 @@ public class EventService {
         }
         return false;
     }
-    public void apply(@RequestParam(name = "eventId") Integer id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByFullName(username).get();
-        Event event = eventRepository.findById(id).get();
+    public void apply(Integer id, String token) {
+        organisationRepository.save(new Organisation("TestOrganization6"));
+        String username = jwtService.extractUsername(token);
+
+        User user = userRepository.findByEmail(username).orElse(null);
+        if(user == null){
+            Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found"));
+            event.setDescription(username);
+            eventRepository.save(event);
+        }
+        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found"));
         List<Event> events = user.getEvents();
         for (Event listEvent : events) {
             if (listEvent.equals(event)) {
-                throw new IllegalStateException(); //a custom exception should be created
+                throw new IllegalStateException("Already applied to this event");
             }
         }
         event.getUsers().add(user);
+        eventRepository.save(event);
         user.getEvents().add(event);
         userRepository.save(user);
-        eventRepository.save(event);
     }
 }
