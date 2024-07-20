@@ -152,26 +152,20 @@ public class EventService {
         }
         return false;
     }
-    public void apply(Integer id, String token) {
-        organisationRepository.save(new Organisation("TestOrganization6"));
-        String username = jwtService.extractUsername(token);
-
-        User user = userRepository.findByEmail(username).orElse(null);
-        if(user == null){
-            Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found"));
-            event.setDescription(username);
-            eventRepository.save(event);
-        }
-        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found"));
+    public void apply(Integer id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).get();
+        Event event = eventRepository.findById(id).get();
         List<Event> events = user.getEvents();
         for (Event listEvent : events) {
             if (listEvent.equals(event)) {
-                throw new IllegalStateException("Already applied to this event");
+                throw new IllegalStateException(); //a custom exception should be created
             }
         }
         event.getUsers().add(user);
-        eventRepository.save(event);
         user.getEvents().add(event);
         userRepository.save(user);
+        eventRepository.save(event);
     }
 }

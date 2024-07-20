@@ -121,8 +121,8 @@ public class EventController {
     }
 
     @PostMapping("/apply")
-    public void apply(@RequestParam(name = "id") Integer id, @RequestParam(name = "token") String token) {
-        eventService.apply(id, token);
+    public void apply(@RequestParam(name = "id") Integer id) {
+        eventService.apply(id);
     }
 }
 
