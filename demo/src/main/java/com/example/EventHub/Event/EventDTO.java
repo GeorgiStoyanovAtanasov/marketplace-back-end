@@ -40,22 +40,5 @@ public class EventDTO {
     private EventStatus eventStatus;
 
 
-    public EventDTO() {
-    }
-
-//    public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, OrganisationDTO dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
-//        this.name = name;
-//        this.date = date;
-//        this.duration = duration;
-//        this.description = description;
-//        this.place = place;
-//        this.time = time;
-//        this.ticketPrice = ticketPrice;
-//        this.capacity = capacity;
-//        this.image = image;
-//        this.organisationDTO = dto;
-//        this.eventTypeDTO = dto1;
-//    }
-
 }
 
