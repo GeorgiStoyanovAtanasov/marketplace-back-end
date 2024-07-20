@@ -169,8 +169,6 @@ u
 Edemo/src/main/java/com/example/EventHub/JWT/dtos/RegisterUserDto.java,3\2\32dc91c660fcd9ad3a87414ad4772c294ad76b34
 Å
 Q.idea/sonarlint/securityhotspotstore/e/5/e5e918a0558c483de2abc69de3b98e87b5a43153,8\2\82a9a5ecb2bb8b3d41b3b371416966adb515f879
-K
-.idea/modules/demo.main.iml,5\6\56915cc1aa27c64d2dc189eab9d4c61670b2dfcf
 w
 G.idea/sonarlint/issuestore/1/f/1fa6f881c2d36343889787878f6c69bd579b80d7,6\a\6a240cd0108fd2c7fff58ab9bc9f3eb36dacdef8
 Å
@@ -193,3 +191,5 @@ w
 G.idea/sonarlint/issuestore/c/f/cf8e20f8961b300e2c364f75cd5118cb401e690c,9\7\976997f89fb3da14a0bc2e527e26c9c5d8b09589
 w
 G.idea/sonarlint/issuestore/f/4/f438e92df9a128488588c94ce5d8060954b109c9,3\1\31a14a6b17fa6a179975f6d9d77d40a46bcd86a6
+?
+demo/.gitignore,8\4\84bf24e05a8e483c2e81f1266cd4daa66e06ece9

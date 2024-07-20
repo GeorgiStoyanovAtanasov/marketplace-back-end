@@ -17,6 +17,13 @@ public class Organisation {
     @Column(name = "organisation_name")
     private String organisationName;
 
+    public Organisation() {
+    }
+
+    public Organisation(String organisationName) {
+        this.organisationName = organisationName;
+    }
+
     public Integer getId() {
         return id;
     }

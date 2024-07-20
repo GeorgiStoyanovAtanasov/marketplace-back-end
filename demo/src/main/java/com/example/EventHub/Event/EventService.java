@@ -5,6 +5,8 @@ import com.example.EventHub.EventStatus.EventStatus;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
+import com.example.EventHub.JWT.services.JwtService;
+import com.example.EventHub.Organisation.Organisation;
 import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
 import com.example.EventHub.User.User;
@@ -41,6 +43,8 @@ public class EventService {
     EventTypeMapper eventTypeMapper;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    JwtService jwtService;
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate localDate = LocalDate.now();
 
@@ -148,10 +152,10 @@ public class EventService {
         }
         return false;
     }
-    public void apply(@RequestParam(name = "eventId") Integer id) {
+    public void apply(Integer id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByFullName(username).get();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).get();
         Event event = eventRepository.findById(id).get();
         List<Event> events = user.getEvents();
         for (Event listEvent : events) {

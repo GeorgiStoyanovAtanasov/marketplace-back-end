@@ -4,6 +4,8 @@ package com.example.EventHub.Event;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
+import com.example.EventHub.JWT.services.JwtService;
+import com.example.EventHub.Organisation.Organisation;
 import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.User.UserRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
@@ -47,6 +49,8 @@ public class EventController {
     EventTypeMapper eventTypeMapper;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    JwtService jwtService;
 
     @PostMapping("/submit")
     public void postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult)  {
@@ -117,7 +121,7 @@ public class EventController {
     }
 
     @PostMapping("/apply")
-    public void apply(@RequestParam(name = "eventId") Integer id) {
+    public void apply(@RequestParam(name = "id") Integer id) {
         eventService.apply(id);
     }
 }

@@ -39,6 +39,5 @@ public class EventDTO {
     private EventType eventType;
     private EventStatus eventStatus;
 
-
 }
 
