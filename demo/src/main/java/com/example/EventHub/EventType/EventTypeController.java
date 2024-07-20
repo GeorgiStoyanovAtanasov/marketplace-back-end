@@ -5,36 +5,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+@RestController
 @RequestMapping("/event-type")
 public class EventTypeController {
+
+    private EventTypeRepository eventTypeRepository;
+    private EventTypeMapper eventTypeMapper;
+
     @Autowired
-    EventTypeRepository eventTypeRepository;
-    @GetMapping("/add")
-    public String addEvent(Model model){
-        model.addAttribute("eventType", new EventType());
-        model.addAttribute("eventTypes", eventTypeRepository.findAll());
-        return "event-type-form";
+    public EventTypeController(EventTypeRepository eventTypeRepository, EventTypeMapper eventTypeMapper){
+        this.eventTypeRepository = eventTypeRepository;
+        this.eventTypeMapper = eventTypeMapper;
     }
-    @PostMapping("/submit")
-    public String postProduct(@Valid @ModelAttribute EventType eventType, BindingResult bindingResult, Model model) {
+
+    @PostMapping("/add")
+    public void postProduct(@Valid @ModelAttribute EventTypeDTO eventTypeDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "event-type-form";
+            throw new IllegalArgumentException();
         } else {
+            EventType eventType = eventTypeMapper.toEntity(eventTypeDTO);
             eventTypeRepository.save(eventType);
-            model.addAttribute("eventType", eventType);
-            return "event-type-result";
         }
     }
     @GetMapping("/all")
-    public String allEvents(Model model){
+    public Iterable<EventType> allEventsTypes(){
         Iterable<EventType> allEventTypes = eventTypeRepository.findAll();
-        model.addAttribute("allEventTypes", allEventTypes);
-        return "all-event-types";
+        return allEventTypes;
     }
+    @DeleteMapping("/delete")
+    public void deleteEventType(@RequestParam("id") Integer id){
+        Optional<EventType> foundEventType = eventTypeRepository.findById(id);
+        if(foundEventType.isPresent()){
+            eventTypeRepository.deleteById(id);
+        }
+    }
+
+    @PutMapping("/update")
+    public void updateEventType(@RequestParam("id") Integer id, @RequestBody EventTypeDTO eventTypeDTO, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            throw new IllegalArgumentException();
+        } else {
+            EventType eventType = eventTypeMapper.toEntity(eventTypeDTO);
+            eventType.setId(id);
+            eventTypeRepository.save(eventType);
+        }
+    }
+
 }
