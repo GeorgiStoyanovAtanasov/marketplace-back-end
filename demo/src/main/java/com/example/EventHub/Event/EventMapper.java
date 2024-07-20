@@ -47,7 +47,7 @@ public class EventMapper {
             System.out.println("Unexpected error: " + e.getMessage());
         }
 
-        event.setOrganisation(organisationRepository.findByOrganisationName(eventDTO.getOrganisationDTO().getName()));
+        event.setOrganisation(organisationRepository.findByOrganisationName(eventDTO.getOrganisation().getName()));
         event.setEventType(eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()));
         event.setEventStatus(EventStatus.AVAILABLE);
         return event;

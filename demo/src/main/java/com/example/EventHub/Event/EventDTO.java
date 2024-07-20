@@ -31,7 +31,7 @@ public class EventDTO {
     @NotNull(message = "Please enter the capacity of the event!")
     private int capacity;
     private MultipartFile file;
-    private OrganisationDTO organisationDTO;
+    private OrganisationDTO organisation;
     private EventTypeDTO eventTypeDTO;
     private EventStatus eventStatus;
 
@@ -49,7 +49,7 @@ public class EventDTO {
         this.ticketPrice = ticketPrice;
         this.capacity = capacity;
         this.image = image;
-        this.organisationDTO = dto;
+        this.organisation = dto;
         this.eventTypeDTO = dto1;
     }
 
@@ -125,12 +125,12 @@ public class EventDTO {
         this.file = file;
     }
 
-    public OrganisationDTO getOrganisationDTO() {
-        return organisationDTO;
+    public OrganisationDTO getOrganisation() {
+        return organisation;
     }
 
-    public void setOrganisationDTO(OrganisationDTO organisationDTO) {
-        this.organisationDTO = organisationDTO;
+    public void setOrganisation(OrganisationDTO organisationDTO) {
+        this.organisation = organisationDTO;
     }
 
     public EventTypeDTO getEventTypeDTO() {
