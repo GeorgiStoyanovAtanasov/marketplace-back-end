@@ -8,6 +8,7 @@ import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.User.UserRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
 import com.example.EventHub.User.User;
+import feign.Response;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@Controller
+@RestController
 @RequestMapping("/event")
 public class EventController {
     @Autowired
@@ -46,31 +48,16 @@ public class EventController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/add")
-    public String addEvent(Model model) {
-        model.addAttribute("eventDTO", new EventDTO());
-        model.addAttribute("eventTypes", eventTypeRepository.findAll());
-        model.addAttribute("organisations", organisationRepository.findAll());
-        return "event-form";
-    }
-
     @PostMapping("/submit")
-    public String postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult, Model model) throws ParseException {
+    public void postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult)  {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            return "event-form";
+            throw new IllegalArgumentException();
         }
         if (eventService.errorEventStatus(eventDTO)) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            model.addAttribute("notValidDate", "Please enter a valid date!");
-            return "event-form";
+            throw new IllegalArgumentException();
         } else {
             Event event = eventMapper.toEntity(eventDTO);
             eventRepository.save(event);
-            model.addAttribute("event", event);
-            return "home";
         }
     }
 
@@ -106,14 +93,13 @@ public class EventController {
     }
 
     @GetMapping("/search")
-    public String searchEvents(@RequestParam(name = "name", required = false) String name,
-                               @RequestParam(name = "place", required = false) String place,
-                               @RequestParam(name = "type", required = false) Integer type,
-                               @RequestParam(name = "date", required = false) String date,
-                               @RequestParam(name = "minPrice", required = false) Double minPrice,
-                               @RequestParam(name = "maxPrice", required = false) Double maxPrice,
-                               Model model) {
-        return eventService.searchEvents(name, place, type, date, minPrice, maxPrice, model);
+    public ResponseEntity<Map<String, List<?>>> searchEvents(@RequestParam(name = "name", required = false) String name,
+                                                             @RequestParam(name = "place", required = false) String place,
+                                                             @RequestParam(name = "type", required = false) Integer type,
+                                                             @RequestParam(name = "date", required = false) String date,
+                                                             @RequestParam(name = "minPrice", required = false) Double minPrice,
+                                                             @RequestParam(name = "maxPrice", required = false) Double maxPrice) {
+        return eventService.searchEvents(name, place, type, date, minPrice, maxPrice);
     }
 
     @GetMapping("/update")
@@ -125,35 +111,14 @@ public class EventController {
     public String postUpdatedProduct(@RequestParam("id") Integer id, @Valid @ModelAttribute Event updatedEvent, BindingResult bindingResult, Model model) {
         return eventService.postUpdate(id, updatedEvent, bindingResult, model);
     }
-
-    @PostMapping("/delete")
-    public String delete(@RequestParam("id") Integer id, Model model) {
-        return eventService.delete(id, model);
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam("name") String name) {
+        eventService.delete(name);
     }
 
-
     @PostMapping("/apply")
-    public String apply(@RequestParam(name = "eventId") Integer id, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByFullName(username).get();
-        Event event = eventRepository.findById(id).get();
-        List<Event> events = user.getEvents();
-        for (Event listEvent : events) {
-            if (listEvent.equals(event)) {
-                model.addAttribute("alreadyApplied", "You have already applied for this event!");
-                model.addAttribute("event", event);
-                return "event-details";
-            }
-        }
-        event.getUsers().add(user);
-        user.getEvents().add(event);
-        userRepository.save(user);
-        eventRepository.save(event);
-
-        model.addAttribute("event", event);
-        model.addAttribute("successfullyApplied", "You have successfully applied for the event!");
-        return "event-details";
+    public void apply(@RequestParam(name = "eventId") Integer id) {
+        eventService.apply(id);
     }
 }
 

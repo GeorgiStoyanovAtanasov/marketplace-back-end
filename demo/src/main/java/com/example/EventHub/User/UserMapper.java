@@ -1,6 +1,6 @@
 package com.example.EventHub.User;
 
-import com.example.EventHub.JWT.configs.SecurityConfiguration;
+//import com.example.EventHub.JWT.configs.SecurityConfiguration;
 import com.example.EventHub.Role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

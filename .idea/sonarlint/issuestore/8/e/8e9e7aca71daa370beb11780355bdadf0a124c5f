@@ -1,7 +1,7 @@
 
-›	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(óçâ{8–­¾™Š2J$03dc3e90-c1b5-41ab-bffa-74028776bc8d
-…
-java:S6813
-"BRemove this field injection and use constructor injection instead.(êæÄŞ8˜­¾™Š2J$0be9d950-5a6e-42ef-8e2c-c910e4842cd9
-…
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8™­¾™Š2J$066919d4-b868-44c6-8ee1-ed8ef79a6cc3
+u	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(óçâ{8Š‘ÿŠ2
+]	java:S125"<This block of commented-out lines of code should be removed.(ª”¶şøÿÿÿÿ8’‘ÿŠ2
+]
+java:S1128";Remove this unused import 'com.example.EventHub.Role.Role'.(Ã³ôÅøÿÿÿÿ8È‘ÿŠ2
+u
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8É‘ÿŠ2

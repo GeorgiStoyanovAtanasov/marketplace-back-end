@@ -1,20 +1,31 @@
 package com.example.EventHub.Event;
 
+import com.example.EventHub.EventApplication;
 import com.example.EventHub.EventStatus.EventStatus;
+import com.example.EventHub.EventType.EventType;
+import com.example.EventHub.EventType.EventTypeDTO;
+import com.example.EventHub.EventType.EventTypeMapper;
 import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
+import com.example.EventHub.User.User;
+import com.example.EventHub.User.UserRepository;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -24,6 +35,12 @@ public class EventService {
     EventTypeRepository eventTypeRepository;
     @Autowired
     OrganisationRepository organisationRepository;
+    @Autowired
+    EventMapper eventMapper;
+    @Autowired
+    EventTypeMapper eventTypeMapper;
+    @Autowired
+    UserRepository userRepository;
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate localDate = LocalDate.now();
 
@@ -68,20 +85,20 @@ public class EventService {
         return event;
     }
 
-    public String delete(Integer id, Model model) {
-        Event event = eventRepository.findById(id).get();
+    public void delete(String name) {
+        Event event = eventRepository.findByName(name);
+        if(event == null){
+            throw new IllegalArgumentException("name cannot be null nigga");
+        }
         eventRepository.delete(event);
-        model.addAttribute("event", event);
-        return "event-delete";
     }
 
-    public String searchEvents(String name,
-                               String place,
-                               Integer type,
-                               String date,
-                               Double minPrice,
-                               Double maxPrice,
-                               Model model) {
+    public ResponseEntity<Map<String, List<?>>> searchEvents(String name,
+                                                             String place,
+                                                             Integer type,
+                                                             String date,
+                                                             Double minPrice,
+                                                             Double maxPrice) {
 
         if (place == null) {
             place = "";
@@ -102,9 +119,19 @@ public class EventService {
             minPrice = maxPrice1;
         }
 
-        model.addAttribute("allEvents", eventRepository.findByPlaceTypeDateAndPrice(name, place, type, date, minPrice, maxPrice));
-        model.addAttribute("allTypes", eventTypeRepository.findAll());
-        return "all-events";
+        List<Event> events = eventRepository.findByPlaceTypeDateAndPrice(name, place, type, date, minPrice, maxPrice);
+        List<EventDTO> eventDTOs = new ArrayList<>();
+        for (int i = 0; i < events.size(); i++) {
+            eventDTOs.add(eventMapper.toDTO(events.get(i)));
+        }
+        List<EventType> allTypes = (List<EventType>) eventTypeRepository.findAll();
+        List<EventTypeDTO> eventTypeDTOs = allTypes.stream().map(eventTypeMapper::toDTO).collect(Collectors.toList());
+
+        Map<String, List<?>> response = new HashMap<>();
+        response.put("events", eventDTOs);
+        response.put("eventTypes", eventTypeDTOs);
+
+        return ResponseEntity.ok(response);
     }
 
 
@@ -120,5 +147,21 @@ public class EventService {
             System.out.println("Parsing error!" + ex);
         }
         return false;
+    }
+    public void apply(@RequestParam(name = "eventId") Integer id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByFullName(username).get();
+        Event event = eventRepository.findById(id).get();
+        List<Event> events = user.getEvents();
+        for (Event listEvent : events) {
+            if (listEvent.equals(event)) {
+                throw new IllegalStateException(); //a custom exception should be created
+            }
+        }
+        event.getUsers().add(user);
+        user.getEvents().add(event);
+        userRepository.save(user);
+        eventRepository.save(event);
     }
 }

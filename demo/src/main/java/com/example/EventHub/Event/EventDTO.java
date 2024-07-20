@@ -34,33 +34,63 @@ public class EventDTO {
     private double ticketPrice;
     @NotNull(message = "Please enter the capacity of the event!")
     private int capacity;
-
     private MultipartFile file;
-
-    private Organisation organisation;
-
-    private EventType eventType;
-
-    @Enumerated(EnumType.STRING)
+    private OrganisationDTO organisationDTO;
+    private EventTypeDTO eventTypeDTO;
     private EventStatus eventStatus;
 
 
+    public EventDTO() {
+    }
 
+    public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, OrganisationDTO dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
+        this.name = name;
+        this.date = date;
+        this.duration = duration;
+        this.description = description;
+        this.place = place;
+        this.time = time;
+        this.ticketPrice = ticketPrice;
+        this.capacity = capacity;
+        this.image = image;
+        this.organisationDTO = dto;
+        this.eventTypeDTO = dto1;
+    }
 
+    public String getName() {
+        return name;
+    }
 
-//    public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, OrganisationDTO dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
-//        this.name = name;
-//        this.date = date;
-//        this.duration = duration;
-//        this.description = description;
-//        this.place = place;
-//        this.time = time;
-//        this.ticketPrice = ticketPrice;
-//        this.capacity = capacity;
-//        this.image = image;
-//        this.organisationDTO = dto;
-//        this.eventTypeDTO = dto1;
-//    }
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setEventTypeDTO(EventTypeDTO eventTypeDTO) {
+        this.eventTypeDTO = eventTypeDTO;
+    }
+
+    public EventStatus getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(EventStatus eventStatus) {
+        this.eventStatus = eventStatus;
+    }
 }
 
