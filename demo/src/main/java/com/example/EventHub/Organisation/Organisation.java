@@ -5,40 +5,19 @@ import com.example.EventHub.User.User;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 
 
 @Entity
 @Table(name = "organisations")
+@Data
 public class Organisation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotEmpty(message = "Please enter the name of the organisation!")
-    @Column(name = "organisation_name")
-    private String organisationName;
+    private String name;
 
-    public Organisation() {
-    }
-
-    public Organisation(String organisationName) {
-        this.organisationName = organisationName;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getOrganisationName() {
-        return organisationName;
-    }
-
-    public void setOrganisationName(String organisationName) {
-        this.organisationName = organisationName;
-    }
 
 
 }
