@@ -27,6 +27,7 @@ public class EventMapper {
     EventTypeRepository eventTypeRepository;
     public Event toEntity(EventDTO eventDTO){
         Event event = new Event();
+        event.setId(eventDTO.getId());
         event.setName(eventDTO.getName());
         event.setDate(eventDTO.getDate());
         event.setDuration(eventDTO.getDuration());
@@ -49,7 +50,8 @@ public class EventMapper {
 
         event.setOrganisation(organisationRepository.findByName(eventDTO.getOrganisation().getName()));
         event.setEventType(eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()));
-        event.setEventStatus(EventStatus.AVAILABLE);
+        event.setEventStatus(eventDTO.getEventStatus());
+
         return event;
     }
     public EventDTO toDTO(Event event) {
