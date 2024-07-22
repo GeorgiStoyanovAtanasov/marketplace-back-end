@@ -52,4 +52,10 @@ public class UserController {
     public ResponseEntity<List<String>> getRoles(String token){
         return ResponseEntity.ok(jwtService.extractRoles(token));
     }
+    @GetMapping("/users/email")
+    public ResponseEntity<String> getEmail(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return ResponseEntity.ok(email);
+    }
 }
