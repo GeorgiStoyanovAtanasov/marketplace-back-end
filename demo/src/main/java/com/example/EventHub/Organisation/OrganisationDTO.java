@@ -1,5 +1,8 @@
 package com.example.EventHub.Organisation;
 
+import lombok.Data;
+
+@Data
 public class OrganisationDTO {
     private Integer id;
     private String name;

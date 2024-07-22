@@ -37,7 +37,7 @@ public class OrganisationService {
     }
 
     private Organisation getOrganisation(Organisation organisation, Organisation updatedOrganisation) {
-        organisation.setOrganisationName(updatedOrganisation.getOrganisationName());
+        organisation.setName(updatedOrganisation.getName());
         return organisation;
     }
 

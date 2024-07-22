@@ -7,16 +7,18 @@ import com.example.EventHub.Organisation.Organisation;
 import com.example.EventHub.Organisation.OrganisationDTO;
 import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserDTO;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
 @Data
+@AllArgsConstructor
 public class EventDTO {
+    @NotEmpty
     private Integer id;
     @NotEmpty(message = "The name of the event can not be empty!")
     private String name;
@@ -35,9 +37,28 @@ public class EventDTO {
     @NotNull(message = "Please enter the capacity of the event!")
     private int capacity;
     private MultipartFile file;
-    private Organisation organisation;
-    private EventType eventType;
+    private OrganisationDTO organisation;
+    private EventTypeDTO eventTypeDTO;
     private EventStatus eventStatus;
+    List<UserDTO>users;
+
+
+    public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, OrganisationDTO dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.duration = duration;
+        this.description = description;
+        this.place = place;
+        this.time = time;
+        this.ticketPrice = ticketPrice;
+        this.capacity = capacity;
+        this.image = image;
+        this.organisation = dto;
+        this.eventTypeDTO = dto1;
+        this.eventStatus = eventStatus;
+        this.users = users;
+    }
 
 }
 

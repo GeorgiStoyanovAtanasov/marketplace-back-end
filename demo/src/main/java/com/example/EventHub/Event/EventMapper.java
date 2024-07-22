@@ -25,9 +25,6 @@ public class EventMapper {
     OrganisationRepository organisationRepository;
     @Autowired
     EventTypeRepository eventTypeRepository;
-    @Autowired
-    private EventRepository eventRepository;
-
     public Event toEntity(EventDTO eventDTO){
         Event event = new Event();
         event.setId(eventDTO.getId());
@@ -51,24 +48,28 @@ public class EventMapper {
             System.out.println("Unexpected error: " + e.getMessage());
         }
 
-        event.setOrganisation(eventDTO.getOrganisation());
-        event.setEventType(eventDTO.getEventType());
+        event.setOrganisation(organisationRepository.findByName(eventDTO.getOrganisation().getName()));
+        event.setEventType(eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()));
         event.setEventStatus(eventDTO.getEventStatus());
+
         return event;
     }
     public EventDTO toDTO(Event event) {
-        EventDTO eventDTO = new EventDTO();
-        eventDTO.setId(event.getId());
-        eventDTO.setName(event.getName());
-        eventDTO.setDuration(event.getDuration());
-        eventDTO.setDescription(event.getDescription());
-        eventDTO.setImage(event.getImage());
-        eventDTO.setPlace(event.getPlace());
-        eventDTO.setTime(event.getTime());
-        eventDTO.setTicketPrice(event.getTicketPrice());
-        eventDTO.setCapacity(event.getCapacity());
-        eventDTO.setOrganisation(event.getOrganisation());
-        eventDTO.setEventType(event.getEventType());
-        return eventDTO;
+        return new EventDTO(
+                event.getId(),
+                event.getName(),
+                event.getDate(),
+                event.getDuration(),
+                event.getDescription(),
+                event.getPlace(),
+                event.getTime(),
+                event.getTicketPrice(),
+                event.getCapacity(),
+                event.getImage(),
+                organisationMapper.toDTO(event.getOrganisation()),
+                eventTypeMapper.toDTO(event.getEventType()),
+                event.getEventStatus(),
+                event.getUsers().stream().map(userMapper::toDTO).collect(Collectors.toList())
+        );
     }
 }
