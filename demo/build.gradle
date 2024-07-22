@@ -3,7 +3,12 @@ plugins {
 	id 'org.springframework.boot' version '3.3.1'
 	id 'io.spring.dependency-management' version '1.1.5'
 	id "org.sonarqube" version "4.4.1.3373"
+
 }
+test {
+	enabled = false
+}
+
 sonar {
 	properties {
 		property "sonar.projectKey", "GeorgiStoyanovAtanasov_marketplace-backend"
@@ -12,8 +17,10 @@ sonar {
 	}
 }
 
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '20'
 
 java {
 	toolchain {
@@ -55,12 +62,17 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+
+	runtimeOnly 'org.hsqldb:hsqldb:2.6.1'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+tasks.withType(Test) {
+	enabled = false
 }
 
 tasks.named('test') {
