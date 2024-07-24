@@ -53,9 +53,12 @@ public class EventController {
     JwtService jwtService;
 
     @PostMapping("/submit")
-    public void postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult)  {
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException();
+    public void postEvent(@RequestBody EventDTO eventDTO, @RequestParam(value = "organisationId", required = false) Integer organisationId) {
+        List<Organisation> organisations = (List<Organisation>) organisationRepository.findAll();
+        for (Organisation organisation: organisations) {
+            if(organisation.getId() == organisationId){
+                eventDTO.setOrganisation(organisation);
+            }
         }
         if (eventService.errorEventStatus(eventDTO)) {
             throw new IllegalArgumentException();
@@ -115,6 +118,7 @@ public class EventController {
     public String postUpdatedProduct(@RequestParam("id") Integer id, @Valid @ModelAttribute Event updatedEvent, BindingResult bindingResult, Model model) {
         return eventService.postUpdate(id, updatedEvent, bindingResult, model);
     }
+
     @DeleteMapping("/delete")
     public void delete(@RequestParam("name") String name) {
         eventService.delete(name);

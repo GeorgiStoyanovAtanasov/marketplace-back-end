@@ -66,7 +66,7 @@ public class EventMapper {
                 event.getTicketPrice(),
                 event.getCapacity(),
                 event.getImage(),
-                organisationMapper.toDTO(event.getOrganisation()),
+                event.getOrganisation(),
                 eventTypeMapper.toDTO(event.getEventType()),
                 event.getEventStatus(),
                 event.getUsers().stream().map(userMapper::toDTO).collect(Collectors.toList())

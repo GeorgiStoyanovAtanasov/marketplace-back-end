@@ -37,13 +37,13 @@ public class EventDTO {
     @NotNull(message = "Please enter the capacity of the event!")
     private int capacity;
     private MultipartFile file;
-    private OrganisationDTO organisation;
+    private Organisation organisation;
     private EventTypeDTO eventTypeDTO;
     private EventStatus eventStatus;
     List<UserDTO>users;
 
 
-    public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, OrganisationDTO dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
+    public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, Organisation dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
         this.id = id;
         this.name = name;
         this.date = date;
