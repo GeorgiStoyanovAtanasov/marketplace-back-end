@@ -8,7 +8,7 @@ public class OrganisationMapper {
         if (organisation == null) {
             return null;
         }
-        return new OrganisationDTO(organisation.getId(), organisation.getName());
+        return new OrganisationDTO(organisation.getId(), organisation.getOrganisation_name());
     }
 
     public Organisation toEntity(OrganisationDTO organisationDTO) {
@@ -17,7 +17,7 @@ public class OrganisationMapper {
         }
         Organisation organisation = new Organisation();
         organisation.setId(organisationDTO.getId());
-        organisation.setName(organisationDTO.getName());
+        organisation.setOrganisation_name(organisationDTO.getOrganisation_name());
         return organisation;
     }
 }

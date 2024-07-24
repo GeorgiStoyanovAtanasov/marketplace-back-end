@@ -1,6 +1,7 @@
 package com.example.EventHub.Organisation;
 
 
+import com.example.EventHub.Event.Event;
 import com.example.EventHub.Manager.Manager;
 import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.User.User;
@@ -26,30 +27,20 @@ public class OrganisationController {
     @Autowired
     private ManagerRepository managerRepository;
 
-    @GetMapping("/add")
-    public String addOrganisation(Model model){
-        model.addAttribute("organisation", new Organisation());
-        model.addAttribute("organisations", organisationRepository.findAll());
-        return "organisation-form";
-    }
-    @PostMapping("/add")
-    public void addOrganisation(@RequestBody OrganisationDTO organisationDTO, Manager manager){
-        Organisation organisation = organisationMapper.toEntity(organisationDTO);
-        organisationRepository.save(organisation);
-        manager.setOrganisation(organisation);
-        managerRepository.save(manager);
 
-    }
     @PostMapping("/submit")
-    public String postProduct(@Valid @ModelAttribute Organisation organisation, BindingResult bindingResult, Model model) {
+    public void addOrganisation(@Valid @RequestBody OrganisationDTO organisationDTO, Manager manager, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
-            return "organisation-form";
-        } else {
+            throw new IllegalArgumentException();
+        }
+         else {
+            Organisation organisation = organisationMapper.toEntity(organisationDTO);
             organisationRepository.save(organisation);
-            model.addAttribute("organisation", organisation);
-            return "organisation-result";
+            manager.setOrganisation(organisation);
+            managerRepository.save(manager);
         }
     }
+
     @GetMapping("/all")
     public Iterable<Organisation> allOrganisations(){
         Iterable<Organisation> allOrganisations = organisationRepository.findAll();

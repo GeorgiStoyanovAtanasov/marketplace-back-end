@@ -1,19 +1,18 @@
 package com.example.EventHub.Organisation;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class OrganisationDTO {
     private Integer id;
-    private String name;
 
-    public OrganisationDTO() {
-    }
-
-    public OrganisationDTO(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    @NotEmpty(message = "Please enter the name of the organisation!")
+    @Column(unique = true)
+    private String organisation_name;
 
     public Integer getId() {
         return id;
@@ -23,11 +22,11 @@ public class OrganisationDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getOrganisation_name() {
+        return organisation_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOrganisation_name(String organisation_name) {
+        this.organisation_name = organisation_name;
     }
 }
