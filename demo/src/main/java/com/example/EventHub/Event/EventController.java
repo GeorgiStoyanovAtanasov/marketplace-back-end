@@ -53,16 +53,13 @@ public class EventController {
     JwtService jwtService;
 
     @PostMapping("/submit")
-    public void postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult)  {
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException();
-        }
-        if (eventService.errorEventStatus(eventDTO)) {
-            throw new IllegalArgumentException();
-        } else {
+    public void postEvent(@RequestBody EventDTO eventDTO)  {
+//        if (eventService.errorEventStatus(eventDTO)) {
+//            throw new IllegalArgumentException();
+//        } else {
             Event event = eventMapper.toEntity(eventDTO);
             eventRepository.save(event);
-        }
+        //}
     }
 
     @GetMapping("/all")
