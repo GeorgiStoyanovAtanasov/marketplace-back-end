@@ -7,6 +7,7 @@ import com.example.EventHub.Organisation.Organisation;
 import com.example.EventHub.Organisation.OrganisationDTO;
 import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,12 +37,15 @@ public class EventDTO {
     private double ticketPrice;
     @NotNull(message = "Please enter the capacity of the event!")
     private int capacity;
+    @JsonIgnore
     private MultipartFile file;
     private OrganisationDTO organisation;
     private EventTypeDTO eventTypeDTO;
     private EventStatus eventStatus;
     List<UserDTO>users;
 
+    public EventDTO() {
+    }
 
     public EventDTO(Integer id, String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, String image, OrganisationDTO dto, EventTypeDTO dto1, EventStatus eventStatus, List<UserDTO> users) {
         this.id = id;

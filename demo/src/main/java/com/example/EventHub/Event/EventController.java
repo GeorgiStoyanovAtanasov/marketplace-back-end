@@ -1,6 +1,7 @@
 package com.example.EventHub.Event;
 
 
+import com.example.EventHub.EventStatus.EventStatus;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
@@ -53,12 +54,13 @@ public class EventController {
     JwtService jwtService;
 
     @PostMapping("/submit")
-    public void postEvent(@RequestBody EventDTO eventDTO)  {
+    public void postEvent(@RequestBody EventDTO eventDTO) {
+
 //        if (eventService.errorEventStatus(eventDTO)) {
 //            throw new IllegalArgumentException();
 //        } else {
-            Event event = eventMapper.toEntity(eventDTO);
-            eventRepository.save(event);
+        Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), eventDTO.getImage(), null, null, EventStatus.AVAILABLE, null);
+        eventRepository.save(event);
         //}
     }
 
@@ -112,6 +114,7 @@ public class EventController {
     public String postUpdatedProduct(@RequestParam("id") Integer id, @Valid @ModelAttribute Event updatedEvent, BindingResult bindingResult, Model model) {
         return eventService.postUpdate(id, updatedEvent, bindingResult, model);
     }
+
     @DeleteMapping("/delete")
     public void delete(@RequestParam("name") String name) {
         eventService.delete(name);

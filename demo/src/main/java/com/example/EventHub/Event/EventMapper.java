@@ -35,18 +35,18 @@ public class EventMapper {
         event.setPlace(eventDTO.getPlace());
         event.setTime(eventDTO.getTime());
         event.setTicketPrice(eventDTO.getTicketPrice());
-        event.setCapacity(eventDTO.getCapacity());
-        try {
-            byte[] fileContent = eventDTO.getFile().getBytes();
-            String encodedImage = Base64.getEncoder().encodeToString(fileContent);
-            event.setImage(encodedImage);
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        } catch (IllegalStateException e) {
-            System.out.println("Invalid file input: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Unexpected error: " + e.getMessage());
-        }
+//        event.setCapacity(eventDTO.getCapacity());
+//        try {
+//            byte[] fileContent = eventDTO.getFile().getBytes();
+//            String encodedImage = Base64.getEncoder().encodeToString(fileContent);
+//            event.setImage(encodedImage);
+//        } catch (IOException e) {
+//            System.out.println("Error reading file: " + e.getMessage());
+//        } catch (IllegalStateException e) {
+//            System.out.println("Invalid file input: " + e.getMessage());
+//        } catch (Exception e) {
+//            System.out.println("Unexpected error: " + e.getMessage());
+//        }
 
         event.setOrganisation(organisationRepository.findByName(eventDTO.getOrganisation().getName()));
         event.setEventType(eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()));
