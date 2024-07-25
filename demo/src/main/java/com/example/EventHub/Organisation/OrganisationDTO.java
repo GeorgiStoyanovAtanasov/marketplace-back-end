@@ -12,21 +12,5 @@ public class OrganisationDTO {
 
     @NotEmpty(message = "Please enter the name of the organisation!")
     @Column(unique = true)
-    private String organisation_name;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getOrganisation_name() {
-        return organisation_name;
-    }
-
-    public void setOrganisation_name(String organisation_name) {
-        this.organisation_name = organisation_name;
-    }
+    private String name;
 }

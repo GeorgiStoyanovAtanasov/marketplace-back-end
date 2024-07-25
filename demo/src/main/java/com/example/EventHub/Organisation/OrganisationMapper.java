@@ -8,16 +8,16 @@ public class OrganisationMapper {
         if (organisation == null) {
             return null;
         }
-        return new OrganisationDTO(organisation.getId(), organisation.getOrganisation_name());
+        return new OrganisationDTO(organisation.getId(), organisation.getName());
     }
 
     public Organisation toEntity(OrganisationDTO organisationDTO) {
-        if (organisationDTO == null) {
-            return null;
-        }
+//        if (organisationDTO == null) {
+//            return null;
+//        }
         Organisation organisation = new Organisation();
         organisation.setId(organisationDTO.getId());
-        organisation.setOrganisation_name(organisationDTO.getOrganisation_name());
+        organisation.setName(organisationDTO.getName());
         return organisation;
     }
 }

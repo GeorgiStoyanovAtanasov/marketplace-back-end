@@ -4,6 +4,8 @@ import com.example.EventHub.Organisation.Organisation;
 import com.example.EventHub.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
