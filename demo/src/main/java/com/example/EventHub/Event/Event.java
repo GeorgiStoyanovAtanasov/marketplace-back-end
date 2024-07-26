@@ -6,11 +6,13 @@ import com.example.EventHub.Organisation.Organisation;
 import com.example.EventHub.User.User;;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "events")
 @Data
+@NoArgsConstructor
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,7 +37,7 @@ public class Event {
 
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
-    private String image;
+    private byte[] image;  // Store as byte array
     @ManyToOne
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
@@ -52,6 +55,24 @@ public class Event {
     inverseJoinColumns = @JoinColumn(name = "user_id"))
     List<User>users;
 
+    public Event(String name, String date, int duration, String description, String place, String time, double ticketPrice, int capacity, byte[] image, Organisation organisation, EventType eventType, EventStatus eventStatus, List<User> users) {
+        this.name = name;
+        this.date = date;
+        this.duration = duration;
+        this.description = description;
+        this.place = place;
+        this.time = time;
+        this.ticketPrice = ticketPrice;
+        this.capacity = capacity;
+        this.image = image;
+        this.organisation = organisation;
+        this.eventType = eventType;
+        this.eventStatus = eventStatus;
+        this.users = users;
+    }
+    public String getBase64Image() {
+        return Base64.getEncoder().encodeToString(this.image);
+    }
 
     public EventStatus getEventStatus() {
         LocalDate localDate=LocalDate.now();
@@ -73,5 +94,4 @@ public class Event {
         }
         return this.eventStatus;
     }
-
 }

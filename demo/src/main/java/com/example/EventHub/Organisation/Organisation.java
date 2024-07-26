@@ -6,11 +6,13 @@ import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "organisations")
 @Data
+@NoArgsConstructor
 public class Organisation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +21,7 @@ public class Organisation {
     @Column(unique = true)
     private String name;
 
-
-
+    public Organisation(String name) {
+        this.name = name;
+    }
 }
