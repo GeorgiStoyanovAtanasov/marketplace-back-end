@@ -35,7 +35,7 @@ public class EventMapper {
         event.setPlace(eventDTO.getPlace());
         event.setTime(eventDTO.getTime());
         event.setTicketPrice(eventDTO.getTicketPrice());
-//        event.setCapacity(eventDTO.getCapacity());
+        event.setCapacity(eventDTO.getCapacity());
 //        try {
 //            byte[] fileContent = eventDTO.getFile().getBytes();
 //            String encodedImage = Base64.getEncoder().encodeToString(fileContent);

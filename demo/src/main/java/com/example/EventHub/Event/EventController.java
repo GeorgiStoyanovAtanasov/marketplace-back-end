@@ -59,8 +59,9 @@ public class EventController {
 //        if (eventService.errorEventStatus(eventDTO)) {
 //            throw new IllegalArgumentException();
 //        } else {
-        Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), eventDTO.getImage(), null, null, EventStatus.AVAILABLE, null);
-        eventRepository.save(event);
+            Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), eventDTO.getImage(), organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null);
+            //Event event = eventMapper.toEntity(eventDTO);
+            eventRepository.save(event);
         //}
     }
 
