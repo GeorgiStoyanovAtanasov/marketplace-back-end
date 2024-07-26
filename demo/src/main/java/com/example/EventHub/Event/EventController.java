@@ -59,9 +59,9 @@ public class EventController {
 //        if (eventService.errorEventStatus(eventDTO)) {
 //            throw new IllegalArgumentException();
 //        } else {
-            Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), eventDTO.getImage(), organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null);
+            //Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), eventDTO.getImage(), organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null);
             //Event event = eventMapper.toEntity(eventDTO);
-            eventRepository.save(event);
+            //eventRepository.save(event);
         //}
     }
 
@@ -70,15 +70,18 @@ public class EventController {
         List<Event> allEvents = (List<Event>) eventRepository.findAll();
         List<EventType> allTypes = (List<EventType>) eventTypeRepository.findAll();
 
-        List<EventDTO> eventDTOs = new ArrayList<>();
-        for (int i = 0; i < allEvents.size(); i++) {
-            eventDTOs.add(eventMapper.toDTO(allEvents.get(i)));
-        }
-        List<EventTypeDTO> eventTypeDTOs = allTypes.stream().map(eventTypeMapper::toDTO).collect(Collectors.toList());
+        List<EventDTO> eventDTOs = allEvents.stream()
+                .map(eventMapper::toDTO)
+                .collect(Collectors.toList());
 
-        Map<String, List<?>> response = new HashMap<>();
-        response.put("events", eventDTOs);
-        response.put("eventTypes", eventTypeDTOs);
+        List<EventTypeDTO> eventTypeDTOs = allTypes.stream()
+                .map(eventTypeMapper::toDTO)
+                .collect(Collectors.toList());
+
+        Map<String, List<?>> response = Map.of(
+                "events", eventDTOs,
+                "eventTypes", eventTypeDTOs
+        );
 
         return ResponseEntity.ok(response);
     }

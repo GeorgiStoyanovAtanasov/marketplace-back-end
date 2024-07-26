@@ -25,7 +25,7 @@ public class EventMapper {
     OrganisationRepository organisationRepository;
     @Autowired
     EventTypeRepository eventTypeRepository;
-    public Event toEntity(EventDTO eventDTO){
+    public Event toEntity(EventDTO eventDTO) {
         Event event = new Event();
         event.setId(eventDTO.getId());
         event.setName(eventDTO.getName());
@@ -36,21 +36,19 @@ public class EventMapper {
         event.setTime(eventDTO.getTime());
         event.setTicketPrice(eventDTO.getTicketPrice());
         event.setCapacity(eventDTO.getCapacity());
-//        try {
-//            byte[] fileContent = eventDTO.getFile().getBytes();
-//            String encodedImage = Base64.getEncoder().encodeToString(fileContent);
-//            event.setImage(encodedImage);
-//        } catch (IOException e) {
-//            System.out.println("Error reading file: " + e.getMessage());
-//        } catch (IllegalStateException e) {
-//            System.out.println("Invalid file input: " + e.getMessage());
-//        } catch (Exception e) {
-//            System.out.println("Unexpected error: " + e.getMessage());
-//        }
-
-        event.setOrganisation(organisationRepository.findByName(eventDTO.getOrganisation().getName()));
-        event.setEventType(eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()));
+        event.setOrganisation(organisationMapper.toEntity(eventDTO.getOrganisation()));
+        event.setEventType(eventTypeMapper.toEntity(eventDTO.getEventTypeDTO()));
         event.setEventStatus(eventDTO.getEventStatus());
+        event.setUsers(eventDTO.getUsers().stream().map(userMapper::toEntity).collect(Collectors.toList()));
+
+        // Handle MultipartFile to byte[] conversion if file is present
+        if (eventDTO.getFile() != null && !eventDTO.getFile().isEmpty()) {
+            try {
+                event.setImage(eventDTO.getFile().getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to convert file to byte array", e);
+            }
+        }
 
         return event;
     }
@@ -61,11 +59,12 @@ public class EventMapper {
                 event.getDate(),
                 event.getDuration(),
                 event.getDescription(),
+                event.getBase64Image(),  // Convert image to Base64 string
                 event.getPlace(),
                 event.getTime(),
                 event.getTicketPrice(),
                 event.getCapacity(),
-                event.getImage(),
+                null, // Assuming file is handled differently
                 organisationMapper.toDTO(event.getOrganisation()),
                 eventTypeMapper.toDTO(event.getEventType()),
                 event.getEventStatus(),
