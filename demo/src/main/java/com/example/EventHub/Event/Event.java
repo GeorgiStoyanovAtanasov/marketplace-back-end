@@ -70,6 +70,7 @@ public class Event {
         this.eventStatus = eventStatus;
         this.users = users;
     }
+
     public String getBase64Image() {
         return Base64.getEncoder().encodeToString(this.image);
     }

@@ -6,7 +6,7 @@ plugins {
 
 }
 test {
-	enabled = false
+	enabled = true
 }
 
 sonar {
@@ -15,6 +15,14 @@ sonar {
 		property "sonar.organization", "georgistoyanovatanasov"
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
+}
+sonarqube {
+	properties {
+		property "sonar.gradle.skipCompile", "true"
+	}
+}
+tasks.named("sonarqube").configure {
+	dependsOn("build")
 }
 
 
@@ -72,7 +80,7 @@ dependencyManagement {
 	}
 }
 tasks.withType(Test) {
-	enabled = false
+	enabled = true
 }
 
 tasks.named('test') {
