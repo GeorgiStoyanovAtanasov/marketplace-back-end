@@ -37,8 +37,13 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/auth/register/user", "/auth/login").permitAll()
-                .requestMatchers("organisation/add", "/organisation/submit").hasAnyAuthority("MANAGER", "ROLE_MANAGER")
-                .anyRequest().hasAnyAuthority("USER", "ROLE_USER", "ADMIN", "ROLE_ADMIN", "MANAGER", "ROLE_MANAGER")//.anyRequest().authenticated()
+                .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
+
+                .requestMatchers("/event/{}").permitAll()
+
+                .requestMatchers("/organisation/add", "/organisation/submit").hasAuthority("ROLE_MANAGER")
+
+                .anyRequest().hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

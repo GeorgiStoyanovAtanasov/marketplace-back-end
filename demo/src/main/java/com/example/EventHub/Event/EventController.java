@@ -1,6 +1,7 @@
 package com.example.EventHub.Event;
 
 
+import com.example.EventHub.EventStatus.EventStatus;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
@@ -27,6 +28,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -53,16 +55,16 @@ public class EventController {
     JwtService jwtService;
 
     @PostMapping("/submit")
-    public void postEvent(@Valid @ModelAttribute EventDTO eventDTO, BindingResult bindingResult)  {
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException();
-        }
-        if (eventService.errorEventStatus(eventDTO)) {
-            throw new IllegalArgumentException();
-        } else {
-            Event event = eventMapper.toEntity(eventDTO);
-            eventRepository.save(event);
-        }
+    public void postEvent(@RequestBody EventDTO eventDTO) {
+
+//        if (eventService.errorEventStatus(eventDTO)) {
+//            throw new IllegalArgumentException();
+//        } else {
+        byte[] decodedImage = Base64.getDecoder().decode(eventDTO.getImage());
+        Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), decodedImage, organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null);
+        //Event event = eventMapper.toEntity(eventDTO);
+        eventRepository.save(event);
+        //}
     }
 
     @GetMapping("/all")
@@ -70,15 +72,18 @@ public class EventController {
         List<Event> allEvents = (List<Event>) eventRepository.findAll();
         List<EventType> allTypes = (List<EventType>) eventTypeRepository.findAll();
 
-        List<EventDTO> eventDTOs = new ArrayList<>();
-        for (int i = 0; i < allEvents.size(); i++) {
-            eventDTOs.add(eventMapper.toDTO(allEvents.get(i)));
-        }
-        List<EventTypeDTO> eventTypeDTOs = allTypes.stream().map(eventTypeMapper::toDTO).collect(Collectors.toList());
+        List<EventDTO> eventDTOs = allEvents.stream()
+                .map(eventMapper::toDTO)
+                .collect(Collectors.toList());
 
-        Map<String, List<?>> response = new HashMap<>();
-        response.put("events", eventDTOs);
-        response.put("eventTypes", eventTypeDTOs);
+        List<EventTypeDTO> eventTypeDTOs = allTypes.stream()
+                .map(eventTypeMapper::toDTO)
+                .collect(Collectors.toList());
+
+        Map<String, List<?>> response = Map.of(
+                "events", eventDTOs,
+                "eventTypes", eventTypeDTOs
+        );
 
         return ResponseEntity.ok(response);
     }
@@ -115,6 +120,7 @@ public class EventController {
     public String postUpdatedProduct(@RequestParam("id") Integer id, @Valid @ModelAttribute Event updatedEvent, BindingResult bindingResult, Model model) {
         return eventService.postUpdate(id, updatedEvent, bindingResult, model);
     }
+
     @DeleteMapping("/delete")
     public void delete(@RequestParam("name") String name) {
         eventService.delete(name);
