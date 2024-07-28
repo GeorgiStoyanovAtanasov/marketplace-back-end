@@ -28,6 +28,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,9 +60,10 @@ public class EventController {
 //        if (eventService.errorEventStatus(eventDTO)) {
 //            throw new IllegalArgumentException();
 //        } else {
-            //Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), eventDTO.getImage(), organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null);
-            //Event event = eventMapper.toEntity(eventDTO);
-            //eventRepository.save(event);
+        byte[] decodedImage = Base64.getDecoder().decode(eventDTO.getImage());
+        Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), decodedImage, organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null);
+        //Event event = eventMapper.toEntity(eventDTO);
+        eventRepository.save(event);
         //}
     }
 
