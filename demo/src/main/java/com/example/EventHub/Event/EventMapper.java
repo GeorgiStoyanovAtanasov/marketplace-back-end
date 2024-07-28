@@ -15,16 +15,20 @@ import java.util.stream.Collectors;
 
 @Component
 public class EventMapper {
-    @Autowired
     OrganisationMapper organisationMapper;
-    @Autowired
     EventTypeMapper eventTypeMapper;
-    @Autowired
     UserMapper userMapper;
-    @Autowired
     OrganisationRepository organisationRepository;
-    @Autowired
     EventTypeRepository eventTypeRepository;
+  
+    @Autowired
+    public EventMapper(OrganisationMapper organisationMapper, EventTypeMapper eventTypeMapper, UserMapper userMapper, OrganisationRepository organisationRepository, EventTypeRepository eventTypeRepository) {
+        this.organisationMapper = organisationMapper;
+        this.eventTypeMapper = eventTypeMapper;
+        this.userMapper = userMapper;
+        this.organisationRepository = organisationRepository;
+        this.eventTypeRepository = eventTypeRepository;
+    }
     public Event toEntity(EventDTO eventDTO) {
         Event event = new Event();
         event.setId(eventDTO.getId());

@@ -12,9 +12,9 @@ public class OrganisationMapper {
     }
 
     public Organisation toEntity(OrganisationDTO organisationDTO) {
-        if (organisationDTO == null) {
-            return null;
-        }
+//        if (organisationDTO == null) {
+//            return null;
+//        }
         Organisation organisation = new Organisation();
         organisation.setId(organisationDTO.getId());
         organisation.setName(organisationDTO.getName());

@@ -1,9 +1,11 @@
 package com.example.EventHub.Organisation;
 
 
+import com.example.EventHub.Event.Event;
 import com.example.EventHub.Manager.Manager;
 import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.User.User;
+import com.example.EventHub.User.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,39 +19,33 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/organisation")
 @RestController
 public class OrganisationController {
-    @Autowired
-    OrganisationRepository organisationRepository;
-    @Autowired
-    OrganisationService organisationService;
-    @Autowired
+    private OrganisationRepository organisationRepository;
+    private OrganisationService organisationService;
     private OrganisationMapper organisationMapper;
-    @Autowired
     private ManagerRepository managerRepository;
+    private UserRepository userRepository;
 
-    @GetMapping("/add")
-    public String addOrganisation(Model model){
-        model.addAttribute("organisation", new Organisation());
-        model.addAttribute("organisations", organisationRepository.findAll());
-        return "organisation-form";
+    @Autowired
+    public OrganisationController(OrganisationRepository organisationRepository, OrganisationService organisationService, OrganisationMapper organisationMapper, ManagerRepository managerRepository, UserRepository userRepository) {
+        this.organisationRepository = organisationRepository;
+        this.organisationService = organisationService;
+        this.organisationMapper = organisationMapper;
+        this.managerRepository = managerRepository;
+        this.userRepository=userRepository;
     }
-    @PostMapping("/add")
-    public void addOrganisation(@RequestBody OrganisationDTO organisationDTO, Manager manager){
-        Organisation organisation = organisationMapper.toEntity(organisationDTO);
-        organisationRepository.save(organisation);
-        manager.setOrganisation(organisation);
-        managerRepository.save(manager);
 
-    }
     @PostMapping("/submit")
-    public String postProduct(@Valid @ModelAttribute Organisation organisation, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "organisation-form";
-        } else {
+    public void addOrganisation(@RequestBody OrganisationDTO organisationDTO){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).get();
+        Manager manager = managerRepository.findByUser(user);
+            Organisation organisation = organisationMapper.toEntity(organisationDTO);
             organisationRepository.save(organisation);
-            model.addAttribute("organisation", organisation);
-            return "organisation-result";
-        }
+            manager.setOrganisation(organisation);
+            managerRepository.save(manager);
     }
+
     @GetMapping("/all")
     public Iterable<Organisation> allOrganisations(){
         Iterable<Organisation> allOrganisations = organisationRepository.findAll();
