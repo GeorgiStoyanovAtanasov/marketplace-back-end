@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/auth/register/user", "/auth/login").permitAll()
+                .requestMatchers("/users/roles").permitAll()
                 .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
 
                 .requestMatchers("/event/{}").permitAll()
