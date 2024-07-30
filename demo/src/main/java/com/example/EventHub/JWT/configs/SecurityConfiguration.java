@@ -38,11 +38,13 @@ public class SecurityConfiguration {
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/auth/register/user", "/auth/login").permitAll()
                 .requestMatchers("/users/roles").permitAll()
+                .requestMatchers("/users/email").permitAll()
                 .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
                 .requestMatchers("/organisation/all").permitAll()
                 .requestMatchers("/event/{}").permitAll()
 
-                .requestMatchers("/organisation/add", "/organisation/submit").hasRole("MANAGER")
+                .requestMatchers("/organisation/submit").hasRole("MANAGER")
+                .requestMatchers("/events/accept","/events/reject").hasAuthority("ADMIN")
 
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
