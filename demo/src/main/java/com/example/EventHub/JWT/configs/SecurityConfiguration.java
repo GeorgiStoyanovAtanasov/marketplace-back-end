@@ -39,12 +39,12 @@ public class SecurityConfiguration {
                 .requestMatchers("/auth/register/user", "/auth/login").permitAll()
                 .requestMatchers("/users/roles").permitAll()
                 .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
-
+                .requestMatchers("/organisation/all").permitAll()
                 .requestMatchers("/event/{}").permitAll()
 
-                .requestMatchers("/organisation/add", "/organisation/submit", "/organisation/all").permitAll()
-                .requestMatchers("/organisation/all").permitAll()
-                .anyRequest().permitAll()
+                .requestMatchers("/organisation/add", "/organisation/submit").hasRole("MANAGER")
+
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
