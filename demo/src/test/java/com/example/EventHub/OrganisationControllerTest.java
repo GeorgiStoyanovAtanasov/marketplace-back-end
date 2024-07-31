@@ -27,15 +27,12 @@ public class OrganisationControllerTest {
 
     private OrganisationRepository organisationRepository;
 
-    private OrganisationMapper organisationMapper;
-
     @Autowired
     public OrganisationControllerTest(OrganisationController organisationController, UserRepository userRepository, ManagerRepository managerRepository, OrganisationRepository organisationRepository, OrganisationMapper organisationMapper) {
         this.organisationController = organisationController;
         this.userRepository = userRepository;
         this.managerRepository = managerRepository;
         this.organisationRepository = organisationRepository;
-        this.organisationMapper = organisationMapper;
     }
 
     private OrganisationDTO organisationDTO;
