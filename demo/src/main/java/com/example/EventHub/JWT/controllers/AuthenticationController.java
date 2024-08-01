@@ -24,19 +24,10 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register/user")
-    public ResponseEntity<User> registerUser(@RequestBody RegisterUserDto registerUserDto) {
-        User registeredUser = authenticationService.signupUser(registerUserDto);
+    public boolean registerUser(@RequestBody RegisterUserDto registerUserDto) {
+        return authenticationService.signupUser(registerUserDto);
 
-        return ResponseEntity.ok(registeredUser);
-    }
 
-    @PostMapping("/register/manager")
-    public ResponseEntity<Manager> registerManager(@RequestBody RegisterUserDto registerUserDto) {
-        User registeredUser = authenticationService.signupManager(registerUserDto);
-        Manager manager = new Manager();
-        manager.setUser(registeredUser);
-        managerRepository.save(manager);
-        return ResponseEntity.ok(manager);
     }
 
     @PostMapping("/login")

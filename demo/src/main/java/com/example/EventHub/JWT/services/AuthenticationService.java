@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthenticationService {
@@ -29,18 +30,29 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User signupUser(RegisterUserDto input) {
+    public boolean signupUser(RegisterUserDto input) {
         User user = new User();
         user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
-        user.setPassword(passwordEncoder.encode(input.getPassword()));
-        user.setRole(Role.USER);
-        return userRepository.save(user);
+        Optional<User> optionalUser = userRepository.findByEmail(input.getEmail());
+        if (optionalUser.isPresent()) {
+            return false;
+        } else {
+            user.setPassword(passwordEncoder.encode(input.getPassword()));
+            user.setRole(Role.USER);
+            userRepository.save(user);
+            return true;
+        }
     }
+
     public User signupManager(RegisterUserDto input) {
         User user = new User();
         user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
+        Optional<User> optionalUser = userRepository.findByEmail(input.getEmail());
+        if (optionalUser.isPresent()) {
+            throw new IllegalArgumentException("this email already exist");
+        }
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setRole(Role.MANAGER);
         return userRepository.save(user);
