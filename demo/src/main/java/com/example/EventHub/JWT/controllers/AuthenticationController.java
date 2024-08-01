@@ -2,8 +2,6 @@ package com.example.EventHub.JWT.controllers;
 
 import com.example.EventHub.JWT.dtos.LoginUserDto;
 import com.example.EventHub.JWT.dtos.RegisterUserDto;
-import com.example.EventHub.Manager.Manager;
-import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.User.User;
 import com.example.EventHub.JWT.responses.LoginResponse;
 import com.example.EventHub.JWT.services.AuthenticationService;
