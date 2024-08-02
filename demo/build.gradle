@@ -2,8 +2,13 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.1'
 	id 'io.spring.dependency-management' version '1.1.5'
-	id "org.sonarqube" version "4.4.1.3373"
-
+	id "jacoco"
+	id "org.sonarqube" version "4.3.0.3225"
+}
+jacocoTestReport {
+	reports {
+		xml.required = true
+	}
 }
 test {
 	enabled = true
@@ -41,6 +46,11 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
+configurations {
+	all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
+	all*.exclude group: 'ch.qos.logback', module: 'logback-core'
+}
 
 repositories {
 	mavenCentral()
@@ -55,7 +65,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	compileOnly 'org.projectlombok:lombok'
@@ -70,7 +82,9 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
-
+	implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0'
 	runtimeOnly 'org.hsqldb:hsqldb:2.6.1'
 }
 
