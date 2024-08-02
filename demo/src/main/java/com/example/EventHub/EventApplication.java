@@ -15,7 +15,6 @@ public class EventApplication {
     private static final Logger logger = LogManager.getLogger(EventApplication.class);
     public static void main(String[] args) {
         logger.error("5.This is an ERROR message.");
-
         SpringApplication.run(EventApplication.class, args);
     }
 }
