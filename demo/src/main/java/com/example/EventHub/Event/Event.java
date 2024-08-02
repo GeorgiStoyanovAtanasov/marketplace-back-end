@@ -37,7 +37,7 @@ public class Event {
 
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
-    private byte[] image;  // Store as byte array
+    private byte[] image;
     @ManyToOne
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
