@@ -39,7 +39,7 @@ jobs:
       - name: Test
         run: |
           cd demo
-          gradle --no-daemon --stacktrace --info test jacocoTestReport
+          gradle --no-daemon --stacktrace test jacocoTestReport
 
       - name: Analyze with SonarCloud
 #        uses: gradle/gradle-build-action@v3
