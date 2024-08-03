@@ -41,10 +41,13 @@ public class SecurityConfiguration {
                 .requestMatchers("/users/email").permitAll()
                 .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
                 .requestMatchers("/organisation/all").permitAll()
-                .requestMatchers("/event/{eventName}").permitAll()
+
 
                 .requestMatchers("/organisation/submit").hasRole("MANAGER")
-                .requestMatchers("/event/accept","/event/reject").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/event/accept","/event/reject").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
+                .requestMatchers("/event/accept","/event/reject").hasAnyRole("ADMIN")
+
+                .requestMatchers("/event/{eventName}").permitAll()
 
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
