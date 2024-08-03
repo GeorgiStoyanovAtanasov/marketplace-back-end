@@ -25,8 +25,8 @@ sonar {
 		property "sonar.projectKey", "GeorgiStoyanovAtanasov_marketplace-backend"
 		property "sonar.organization", "georgistoyanovatanasov"
 		property "sonar.host.url", "https://sonarcloud.io"
-		property 'sonar.tests', 'demo/src/test'
-//		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+		property 'sonar.tests', 'src/test'
+		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }
 sonarqube {
