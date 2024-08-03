@@ -3,6 +3,8 @@ package com.example.EventHub.Organisation;
 
 import com.example.EventHub.Event.Event;
 import com.example.EventHub.Manager.Manager;
+import com.example.EventHub.Manager.ManagerDTO;
+import com.example.EventHub.Manager.ManagerMapper;
 import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserRepository;
@@ -15,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RequestMapping("/organisation")
 @RestController
@@ -23,46 +27,53 @@ public class OrganisationController {
     private OrganisationService organisationService;
     private OrganisationMapper organisationMapper;
     private ManagerRepository managerRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public OrganisationController(OrganisationRepository organisationRepository, OrganisationService organisationService, OrganisationMapper organisationMapper, ManagerRepository managerRepository, UserRepository userRepository) {
+    public OrganisationController(OrganisationRepository organisationRepository, OrganisationService organisationService, OrganisationMapper organisationMapper, ManagerRepository managerRepository, UserRepository userRepository, ManagerMapper managerMapper) {
         this.organisationRepository = organisationRepository;
         this.organisationService = organisationService;
         this.organisationMapper = organisationMapper;
         this.managerRepository = managerRepository;
-        this.userRepository=userRepository;
     }
 
     @PostMapping("/submit")
-    public void addOrganisation(@RequestBody OrganisationDTO organisationDTO){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        User user = userRepository.findByEmail(email).get();
-        Manager manager = managerRepository.findByUser(user);
+    public boolean addOrganisation(@RequestBody OrganisationDTO organisationDTO, @RequestParam Integer id) {
+        Optional<Manager> optionalManager = managerRepository.findById(id);
+        if(optionalManager.isEmpty()){
+           return false;
+        }else{
+            Manager manager = optionalManager.get();
             Organisation organisation = organisationMapper.toEntity(organisationDTO);
-            organisationRepository.save(organisation);
-            manager.setOrganisation(organisation);
+            Organisation savedOrganisation = organisationRepository.save(organisation);
+            manager.setOrganisation(savedOrganisation);
             managerRepository.save(manager);
+            return true;
+        }
     }
 
     @GetMapping("/all")
-    public Iterable<Organisation> allOrganisations(){
+    public Iterable<Organisation> allOrganisations() {
         Iterable<Organisation> allOrganisations = organisationRepository.findAll();
         return allOrganisations;
     }
-    @GetMapping("/update")
-    public String updateOrganisationForm(@RequestParam("id") Integer id, Model model) {
-        return organisationService.updateForm(id, model);
+
+
+
+    @PutMapping("/update")
+    public void postUpdatedOrganisation(@RequestParam("id") Integer id, @RequestBody OrganisationDTO updatedOrganisation) {
+        organisationService.postUpdate(id, updatedOrganisation);
     }
 
-    @PostMapping("/update")
-    public String postUpdatedOrganisation(@RequestParam("id") Integer id, @ModelAttribute Organisation updatedOrganisation, BindingResult bindingResult, Model model) {
-        return organisationService.postUpdate(id, updatedOrganisation, bindingResult, model);
-    }
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") Integer id, Model model) {
-        return organisationService.delete(id, model);
-    }
 
+
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam("id") Integer id) {
+        Optional<Organisation> optionalOrganisation = organisationRepository.findById(id);
+        if (optionalOrganisation.isPresent()) {
+            Organisation organisation=optionalOrganisation.get();
+            organisationRepository.delete(organisation);
+        }else {
+            throw new IllegalArgumentException("id is not found");
+        }
+    }
 }

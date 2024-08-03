@@ -56,16 +56,16 @@ public class EventController {
     JwtService jwtService;
 
     @PostMapping("/submit")
-    public void postEvent(@RequestBody EventDTO eventDTO) {
-
-//        if (eventService.errorEventStatus(eventDTO)) {
-//            throw new IllegalArgumentException();
-//        } else {
+    public boolean postEvent(@RequestBody EventDTO eventDTO) {
+        if (eventService.errorEventStatus(eventDTO)) {
+            return false;
+        } else {
         byte[] decodedImage = Base64.getDecoder().decode(eventDTO.getImage());
         Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), decodedImage, organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null, EventPermission.WAITING);
         //Event event = eventMapper.toEntity(eventDTO);
         eventRepository.save(event);
-        //}
+        return true;
+        }
     }
 
     @GetMapping("/all")

@@ -43,13 +43,19 @@ public class SecurityConfiguration {
                 .requestMatchers("/organisation/all").permitAll()
 
 
+
                 .requestMatchers("/organisation/submit").hasRole("MANAGER")
                 .requestMatchers("/event/accept","/event/reject").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                 .requestMatchers("/event/accept","/event/reject").hasAnyRole("ADMIN")
 
                 .requestMatchers("/event/{eventName}").permitAll()
 
-                .anyRequest().hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/organisation/add", "/organisation/submit").permitAll()
+                .requestMatchers("/manager/register").permitAll()
+
+
+                //.anyRequest().hasAnyRole("USER", "ADMIN")
+                .anyRequest().hasAnyAuthority("USER", "ROLE_USER", "ADMIN", "ROLE_ADMIN")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

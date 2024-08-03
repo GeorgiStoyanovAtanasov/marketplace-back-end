@@ -17,11 +17,13 @@ public class EventTypeController {
 
     private EventTypeRepository eventTypeRepository;
     private EventTypeMapper eventTypeMapper;
+    private EventTypeService eventTypeService;
 
     @Autowired
-    public EventTypeController(EventTypeRepository eventTypeRepository, EventTypeMapper eventTypeMapper){
+    public EventTypeController(EventTypeRepository eventTypeRepository, EventTypeMapper eventTypeMapper, EventTypeService eventTypeService){
         this.eventTypeRepository = eventTypeRepository;
         this.eventTypeMapper = eventTypeMapper;
+        this.eventTypeService=eventTypeService;
     }
 
     @PostMapping("/add")
@@ -48,13 +50,6 @@ public class EventTypeController {
 
     @PutMapping("/update")
     public void updateEventType(@RequestParam("id") Integer id, @RequestBody EventTypeDTO eventTypeDTO, BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException();
-        } else {
-            EventType eventType = eventTypeMapper.toEntity(eventTypeDTO);
-            eventType.setId(id);
-            eventTypeRepository.save(eventType);
-        }
+        eventTypeService.updateEventType(id, eventTypeDTO, bindingResult);
     }
-
 }
