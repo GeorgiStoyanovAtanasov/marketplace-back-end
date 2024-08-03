@@ -38,3 +38,4 @@ jobs:
         run: |
           cd demo
           gradle :sonar --info
+          gradle build jacocoTestReport :sonar -- info

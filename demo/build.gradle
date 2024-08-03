@@ -29,7 +29,9 @@ sonarqube {
 tasks.named("sonarqube").configure {
 	dependsOn("build")
 }
-
+plugins.withType(JacocoPlugin) {
+	tasks["test"].finalizedBy 'jacocoTestReport'
+}
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
