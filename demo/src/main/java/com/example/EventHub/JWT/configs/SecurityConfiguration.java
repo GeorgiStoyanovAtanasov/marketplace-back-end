@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/event/{eventName}").permitAll()
 
                 .requestMatchers("/organisation/submit").hasRole("MANAGER")
-                .requestMatchers("/event/accept","/event/reject").hasAuthority("ADMIN")
+                .requestMatchers("/event/accept","/event/reject").hasAuthority("ROLE_ADMIN")
 
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
