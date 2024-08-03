@@ -56,7 +56,7 @@ public class OrganisationControllerTest {
         manager.setUser(user);
         managerRepository.save(manager);
 
-        organisationController.addOrganisation(organisationDTO);
+        organisationController.addOrganisation(organisationDTO, manager.getId());
 
         Organisation savedOrganisation = organisationRepository.findByName("Test Org");
         assertNotNull(savedOrganisation, "Organisation should be saved in the database");
@@ -67,25 +67,11 @@ public class OrganisationControllerTest {
 
     @Test
     @WithMockUser(username = "nonexistent@example.com")
-    void testAddOrganisation_UserNotFound() {
-        assertThrows(Exception.class, () -> {
-            organisationController.addOrganisation(organisationDTO);
-        }, "Expected an exception when the user is not found");
-    }
-
-    @Test
-    @WithMockUser(username = "test@example1.com")
     void testAddOrganisation_ManagerNotFound() {
-        User user = new User();
-        user.setFullName("Test");
-        user.setPassword("123456");
-        user.setEmail("test@example1.com");
-        user.setRole(Role.USER);
-        userRepository.save(user);
-
-        assertThrows(Exception.class, () -> {
-            organisationController.addOrganisation(organisationDTO);
-        }, "Expected an exception when the manager is not found");
+        boolean actual = organisationController.addOrganisation(organisationDTO, 0);
+        assertEquals(false, actual);
     }
+
+
 }
 
