@@ -33,18 +33,14 @@ jobs:
 
 
       - name: Build
-        run: |
-          cd demo
-          gradle --no-daemon --stacktrace --info assemble
+        run: gradle --no-daemon --stacktrace --info assemble
       - name: Test
-        run: |
-          cd demo
-          gradle --no-daemon --stacktrace --info test jacocoTestReport
+        run: gradle --no-daemon --stacktrace --info test jacocoTestReport
 
       - name: Analyze with SonarCloud
+        uses: gradle/gradle-build-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          cd demo
-          gradle sonar --info --debug
+        with:
+          arguments: sonar --info
