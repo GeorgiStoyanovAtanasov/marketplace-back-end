@@ -48,4 +48,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd demo
-          arguments: sonar --info
+          gradle sonar --info
