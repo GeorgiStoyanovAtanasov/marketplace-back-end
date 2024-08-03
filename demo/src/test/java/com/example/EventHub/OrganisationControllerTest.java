@@ -8,6 +8,7 @@ import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles({"testdb"})
+@ExtendWith(DbSetupExtension.class)
 public class OrganisationControllerTest {
     private OrganisationController organisationController;
 
