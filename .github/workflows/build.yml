@@ -31,11 +31,20 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
 
-      - name: Build and analyze
+#
+      - name: Set Gradlew permissions
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew --no-daemon --stacktrace --info assemble
+
+      - name: Test
+        run: ./gradlew --no-daemon --stacktrace --info test jacocoTestReport
+
+      - name: Analyze with SonarCloud
+        uses: gradle/gradle-build-action@v3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          cd demo
-          gradle :sonar --info
-          gradle build jacocoTestReport sonar
+        with:
+          arguments: sonar --info
