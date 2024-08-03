@@ -41,10 +41,13 @@ public class SecurityConfiguration {
                 .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
                 .requestMatchers("/organisation/all").permitAll()
                 .requestMatchers("/event/{}").permitAll()
+
                 .requestMatchers("/organisation/add", "/organisation/submit").permitAll()
                 .requestMatchers("/manager/register").permitAll()
 
-                .anyRequest().hasAnyRole("USER", "ADMIN")
+
+                //.anyRequest().hasAnyRole("USER", "ADMIN")
+                .anyRequest().hasAnyAuthority("USER", "ROLE_USER", "ADMIN", "ROLE_ADMIN")
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
