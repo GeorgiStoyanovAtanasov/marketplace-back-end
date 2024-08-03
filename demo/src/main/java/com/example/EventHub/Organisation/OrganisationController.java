@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 
 @RequestMapping("/organisation")
 @RestController
@@ -51,18 +53,20 @@ public class OrganisationController {
         Iterable<Organisation> allOrganisations = organisationRepository.findAll();
         return allOrganisations;
     }
-    @GetMapping("/update")
-    public String updateOrganisationForm(@RequestParam("id") Integer id, Model model) {
-        return organisationService.updateForm(id, model);
-    }
 
-    @PostMapping("/update")
-    public String postUpdatedOrganisation(@RequestParam("id") Integer id, @ModelAttribute Organisation updatedOrganisation, BindingResult bindingResult, Model model) {
-        return organisationService.postUpdate(id, updatedOrganisation, bindingResult, model);
-    }
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") Integer id, Model model) {
-        return organisationService.delete(id, model);
-    }
 
+    @PutMapping("/update")
+    public void postUpdatedOrganisation(@RequestParam("id") Integer id, @RequestBody OrganisationDTO updatedOrganisation) {
+        organisationService.postUpdate(id, updatedOrganisation);
+    }
+    @DeleteMapping("/delete")
+    public void delete(@RequestParam("id") Integer id) {
+        Optional<Organisation> optionalOrganisation = organisationRepository.findById(id);
+        if (optionalOrganisation.isPresent()) {
+            Organisation organisation=optionalOrganisation.get();
+            organisationRepository.delete(organisation);
+        }else {
+            throw new IllegalArgumentException("id is not found");
+        }
+    }
 }
