@@ -1,6 +1,0 @@
-
-v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(’èÆÌ8·µ¯šŠ2
-R
-java:S1128"0Remove this unused import 'jakarta.persistence'.(Î«Ô§úÿÿÿÿ8¹µ¯šŠ2
-a
-java:S1128"DRemove this unused import 'jakarta.validation.constraints.NotEmpty'.(µÇî±8ºµ¯šŠ2

@@ -1,19 +1,0 @@
-
-u	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(óçâ{8©¥‹öŒ2
-`
-java:S1128"DRemove this unused import 'jakarta.servlet.http.HttpServletRequest'.(õ38‹¦‹öŒ2
-Y
-java:S1128"=Remove this unused import 'jakarta.servlet.http.HttpSession'.(Çê°8Œ¦‹öŒ2
-h
-java:S1128
-"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8¦‹öŒ2
-p
-java:S1128"SRemove this unused import 'org.springframework.web.bind.annotation.RequestMapping'.(ö»¿ë8¦‹öŒ2
-v
-java:S1128"YRemove this unused import 'org.springframework.web.context.request.RequestContextHolder'.(ºãê8’¦‹öŒ2
-z
-java:S1128"]Remove this unused import 'org.springframework.web.context.request.ServletRequestAttributes'.(şĞ‘Ÿ8”¦‹öŒ2
-O
-java:S1068"2Remove this unused "userRepository" private field.(¼²Æ÷8™¦‹öŒ2
-K
-java:S1068".Remove this unused "userMapper" private field.(áç÷8š¦‹öŒ2
