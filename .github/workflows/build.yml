@@ -3,7 +3,7 @@ name: SonarCloud  # This is the name of your workflow
 on:
   push:
     branches:
-      - master
+      - '*'  # Listen for pushes on all branches
   pull_request:
     types: [opened, synchronize, reopened]
 
