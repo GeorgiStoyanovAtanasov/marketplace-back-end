@@ -1,0 +1,126 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.1'
+	id 'io.spring.dependency-management' version '1.1.5'
+	id "jacoco"
+	id "org.sonarqube" version "5.1.0.4882"
+}
+jacoco {
+	toolVersion = "0.8.10" // Make sure this matches your project setup
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+	}
+}
+test {
+	enabled = true
+}
+
+sonar {
+	properties {
+		property "sonar.projectKey", "GeorgiStoyanovAtanasov_marketplace-backend"
+		property "sonar.organization", "georgistoyanovatanasov"
+		property "sonar.host.url", "https://sonarcloud.io"
+		property 'sonar.tests', 'src/test'
+		property "sonar.java.coveragePlugin", "jacoco"
+		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+	}
+}
+sonarqube {
+	properties {
+		property "sonar.gradle.skipCompile", "true"
+	}
+}
+//sonarqube {
+//	properties {
+//		property "sonar.projectKey", "GeorgiStoyanovAtanasov_marketplace-backend"
+//		property "sonar.organization", "georgistoyanovatanasov"
+//		property "sonar.host.url", "https://sonarcloud.io"
+//		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+//		property "sonar.sourceEncoding", "UTF-8"
+//		property "sonar.java.source", "20"  // Update if you're using a different Java version
+//		property "sonar.login", System.getenv("SONAR_TOKEN") // Ensures SONAR_TOKEN is used for authentication
+//	}
+//}
+tasks.named("sonarqube").configure {
+	dependsOn("build")
+}
+plugins.withType(JacocoPlugin) {
+	tasks["test"].finalizedBy 'jacocoTestReport'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '20'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(20)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+configurations {
+	all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	all*.exclude group: 'ch.qos.logback', module: 'logback-classic'
+	all*.exclude group: 'ch.qos.logback', module: 'logback-core'
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('testcontainers.version', '1.19.3')
+	set('springCloudVersion', "2023.0.2")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation('org.springframework.boot:spring-boot-starter-web') {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok:1.18.32'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+	implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.20.0'
+	runtimeOnly 'org.hsqldb:hsqldb:2.6.1'
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.10' // Added Kotlin
+	testImplementation 'org.testcontainers:mysql:1.20.1'
+	testImplementation 'org.testcontainers:junit-jupiter'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+tasks.withType(Test) {
+	enabled = true
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
