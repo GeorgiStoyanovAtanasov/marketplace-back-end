@@ -3,7 +3,7 @@ package com.example.EventHub.Event;
 import com.example.EventHub.EventStatus.EventStatus;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.Organisation.Organisation;
-import com.example.EventHub.User.User;;
+import com.example.EventHub.User.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
