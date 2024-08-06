@@ -42,7 +42,9 @@ public class SecurityConfiguration {
                 .requestMatchers("/organisation/all").permitAll()
                 .requestMatchers("/event/{}").permitAll()
 
-                .requestMatchers("/organisation/add", "/organisation/submit").hasAnyRole("MANAGER", "ADMIN")
+                .requestMatchers("/organisation/add", "/organisation/submit").permitAll()
+                .requestMatchers("/manager/register").permitAll()
+
 
                 //.anyRequest().hasAnyRole("USER", "ADMIN")
                 .anyRequest().hasAnyAuthority("USER", "ROLE_USER", "ADMIN", "ROLE_ADMIN")
