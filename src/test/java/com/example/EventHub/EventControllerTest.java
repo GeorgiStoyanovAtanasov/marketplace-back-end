@@ -25,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,8 +47,7 @@ public class EventControllerTest {
 
     @Autowired
     private EventTypeRepository eventTypeRepository;
-
-    @Mock
+    @Autowired
     private EventService eventService;
 
     @InjectMocks
@@ -72,7 +73,7 @@ public class EventControllerTest {
     public void testPostEvent_errorEventStatusFalse() {
         // Arrange
         EventDTO eventDTO = createEventDTO();
-        when(eventService.errorEventStatus(any(EventDTO.class))).thenReturn(false);
+        eventDTO.setDate(generateFutureDate());
 
         // Act
         boolean result = eventController.postEvent(eventDTO);
@@ -88,7 +89,6 @@ public class EventControllerTest {
         // Arrange
         eventRepository.deleteAll();
         EventDTO eventDTO = createEventDTO();
-        when(eventService.errorEventStatus(any(EventDTO.class))).thenReturn(true);
 
         // Act
         boolean result = eventController.postEvent(eventDTO);
@@ -136,10 +136,58 @@ public class EventControllerTest {
         assertTrue(response.getBody().isEmpty(), "Response body should be empty when event is not found");
     }
 
+    @Test
+    public void testSearchEvents() {
+        //Arrange
+        List<EventType> eventTypes = (List<EventType>) eventTypeRepository.findAll();
+        //Act
+        ResponseEntity<Map<String, List<?>>> response = eventController.searchEvents(
+                "TestEvent",
+                "some place",
+                eventTypes.get(0).getId(),
+                "2024-08-09",
+                0.0,
+                10.0
+        );
+        //Assert
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        Map<String, List<?>> body = response.getBody();
+
+        assertNotNull(body);
+        assertFalse(body.get("events").isEmpty());
+        assertFalse(body.get("eventTypes").isEmpty());
+    }
+
+    @Test
+    public void testDeleteEvent_Success() {
+        // Arrange
+
+        // Act
+        eventController.delete("TestEvent");
+
+        // Assert
+        Event deletedEvent = eventRepository.findByName("TestEvent");
+        assertNull(deletedEvent); // Assert that the event has been deleted
+    }
+
+    @Test
+    public void testDeleteEvent_NotFound() {
+        // Arrange
+        String nonExistentEventName = "NonExistentEvent";
+
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            eventService.delete(nonExistentEventName);
+        });
+    }
+
+
     private EventDTO createEventDTO() {
         EventDTO eventDTO = new EventDTO();
         eventDTO.setName("Sample Event");
-        eventDTO.setDate("2024-08-10");
+        eventDTO.setDate(generatePastDate());
         eventDTO.setDuration(120);
         eventDTO.setDescription("Sample Description");
         eventDTO.setPlace("Sample Place");
@@ -157,5 +205,31 @@ public class EventControllerTest {
         eventDTO.setEventTypeDTO(eventTypeDTO);
 
         return eventDTO;
+    }
+    public static String generateFutureDate() {
+        // Define the date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the future date
+        LocalDate futureDate = currentDate.plusDays(1);
+
+        // Format the future date as a string
+        return futureDate.format(formatter);
+    }
+    public static String generatePastDate() {
+        // Define the date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Calculate the past date
+        LocalDate pastDate = currentDate.minusDays(1);
+
+        // Format the past date as a string
+        return pastDate.format(formatter);
     }
 }
