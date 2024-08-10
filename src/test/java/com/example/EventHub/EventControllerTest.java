@@ -1,6 +1,7 @@
 package com.example.EventHub;
 
 import com.example.EventHub.Event.*;
+import com.example.EventHub.EventPermission.EventPermission;
 import com.example.EventHub.EventStatus.EventStatus;
 import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
@@ -65,7 +66,7 @@ public class EventControllerTest {
 
         EventType eventType = new EventType("Conference");
         eventTypeRepository.save(eventType);
-        Event event = new Event("TestEvent", "2024-08-09", 6, "some description", "some place", "12:30", 0.0, 100, "some image".getBytes(), organisation, eventType, EventStatus.AVAILABLE, Collections.emptyList());
+        Event event = new Event("TestEvent", "2024-08-09", 6, "some description", "some place", "12:30", 0.0, 100, "some image".getBytes(), organisation, eventType, EventStatus.AVAILABLE, Collections.emptyList(), EventPermission.ACCEPT);
         eventRepository.save(event);
     }
 
@@ -102,7 +103,7 @@ public class EventControllerTest {
     @Test
     public void testGetAllEventsAndTypes() {
         // Act
-        ResponseEntity<Map<String, List<?>>> response = eventController.getAllEventsAndTypes();
+        ResponseEntity<Map<String, List<?>>> response = eventController.getAllEventsAndTypes(EventPermission.ACCEPT);
 
         // Assert
         assertEquals(200, response.getStatusCodeValue());
@@ -147,7 +148,8 @@ public class EventControllerTest {
                 eventTypes.get(0).getId(),
                 "2024-08-09",
                 0.0,
-                10.0
+                10.0,
+                EventPermission.ACCEPT
         );
         //Assert
         assertNotNull(response.getBody());
