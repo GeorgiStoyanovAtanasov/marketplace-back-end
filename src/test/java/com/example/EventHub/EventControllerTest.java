@@ -3,6 +3,7 @@ package com.example.EventHub;
 import com.example.EventHub.Event.Event;
 import com.example.EventHub.Event.EventRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles({"testdb"})
+@ExtendWith(DbSetupExtension.class)
 public class EventControllerTest {
 
     @Autowired

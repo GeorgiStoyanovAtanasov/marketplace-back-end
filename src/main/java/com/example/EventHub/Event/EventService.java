@@ -112,7 +112,6 @@ public class EventService {
         if (date == null) {
             date = "";
         }
-
         if (minPrice == null) {
             minPrice = (double) 0;
         }
@@ -139,7 +138,6 @@ public class EventService {
 
         return ResponseEntity.ok(response);
     }
-
 
     public boolean errorEventStatus(EventDTO eventDTO) {
         try {
