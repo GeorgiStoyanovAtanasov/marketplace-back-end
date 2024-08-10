@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -92,20 +93,19 @@ public class EventService {
 
     public void delete(String name) {
         Event event = eventRepository.findByName(name);
-        if (event == null) {
-            throw new IllegalArgumentException("name cannot be null nigga");
+        if(event == null){
+            throw new IllegalArgumentException("name cannot be null");
         }
         eventRepository.delete(event);
     }
 
-    public ResponseEntity<Map<String, List<?>>> searchEvents(String name,
+    public Map<String, List<?>> searchEvents(String name,
                                                              String place,
                                                              Integer type,
                                                              String date,
                                                              Double minPrice,
                                                              Double maxPrice,
                                                              EventPermission eventPermission) {
-
         if (place == null) {
             place = "";
         }
@@ -123,7 +123,6 @@ public class EventService {
             maxPrice = minPrice;
             minPrice = maxPrice1;
         }
-
         List<Event> events = eventRepository.findByPlaceTypeDateAndPrice(name, place, type, date, minPrice, maxPrice, eventPermission);
         List<EventDTO> eventDTOs = new ArrayList<>();
         for (int i = 0; i < events.size(); i++) {
@@ -136,7 +135,7 @@ public class EventService {
         response.put("events", eventDTOs);
         response.put("eventTypes", eventTypeDTOs);
 
-        return ResponseEntity.ok(response);
+        return response;
     }
 
     public boolean errorEventStatus(EventDTO eventDTO) {
