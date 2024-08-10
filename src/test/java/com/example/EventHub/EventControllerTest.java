@@ -169,7 +169,7 @@ public class EventControllerTest {
 
         // Assert
         Event deletedEvent = eventRepository.findByName("TestEvent");
-        assertNull(deletedEvent); // Assert that the event has been deleted
+        assertNull(deletedEvent);
     }
 
     @Test
@@ -207,29 +207,15 @@ public class EventControllerTest {
         return eventDTO;
     }
     public static String generateFutureDate() {
-        // Define the date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        // Get the current date
         LocalDate currentDate = LocalDate.now();
-
-        // Calculate the future date
         LocalDate futureDate = currentDate.plusDays(1);
-
-        // Format the future date as a string
         return futureDate.format(formatter);
     }
     public static String generatePastDate() {
-        // Define the date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        // Get the current date
         LocalDate currentDate = LocalDate.now();
-
-        // Calculate the past date
         LocalDate pastDate = currentDate.minusDays(1);
-
-        // Format the past date as a string
         return pastDate.format(formatter);
     }
 }
