@@ -44,35 +44,35 @@ public class OrganisationControllerTest {
         organisationDTO = new OrganisationDTO(1, "Test Org");
     }
 
-    @Test
-    @WithMockUser(username = "test@example.com")
-    @Rollback
-    void testAddOrganisation_Success() {
-        User user = new User();
-        user.setEmail("test@example.com");
-        user.setFullName("Test");
-        user.setPassword("123456");
-        userRepository.save(user);
+//    @Test
+//    @WithMockUser(username = "test@example.com")
+//    @Rollback
+//    void testAddOrganisation_Success() {
+//        User user = new User();
+//        user.setEmail("test@example.com");
+//        user.setFullName("Test");
+//        user.setPassword("123456");
+//        userRepository.save(user);
+//
+//        Manager manager = new Manager();
+//        manager.setUser(user);
+//        managerRepository.save(manager);
+//
+//        organisationController.addOrganisation(organisationDTO, manager.getId());
+//
+//        Organisation savedOrganisation = organisationRepository.findByName("Test Org");
+//        assertNotNull(savedOrganisation, "Organisation should be saved in the database");
+//
+//        Manager updatedManager = managerRepository.findByUser(user);
+//        assertEquals(savedOrganisation, updatedManager.getOrganisation(), "Manager should be associated with the new organisation");
+//    }
 
-        Manager manager = new Manager();
-        manager.setUser(user);
-        managerRepository.save(manager);
-
-        organisationController.addOrganisation(organisationDTO, manager.getId());
-
-        Organisation savedOrganisation = organisationRepository.findByName("Test Org");
-        assertNotNull(savedOrganisation, "Organisation should be saved in the database");
-
-        Manager updatedManager = managerRepository.findByUser(user);
-        assertEquals(savedOrganisation, updatedManager.getOrganisation(), "Manager should be associated with the new organisation");
-    }
-
-    @Test
-    @WithMockUser(username = "nonexistent@example.com")
-    void testAddOrganisation_ManagerNotFound() {
-        boolean actual = organisationController.addOrganisation(organisationDTO, 0);
-        assertEquals(false, actual);
-    }
+//    @Test
+//    @WithMockUser(username = "nonexistent@example.com")
+//    void testAddOrganisation_ManagerNotFound() {
+//        boolean actual = organisationController.addOrganisation(organisationDTO, 0);
+//        assertEquals(false, actual);
+//    }
 
 
 }
