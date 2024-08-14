@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -61,7 +62,14 @@ public class OrganisationController {
 
     @PutMapping("/update")
     public void postUpdatedOrganisation(@RequestParam("id") Integer id, @RequestBody OrganisationDTO updatedOrganisation) {
-        organisationService.postUpdate(id, updatedOrganisation);
+        Optional<Organisation> optionalOrganisation = organisationRepository.findById(id);
+        if (optionalOrganisation.isPresent()) {
+            Organisation organisation = optionalOrganisation.get();
+            organisation.setName(updatedOrganisation.getName());
+            organisationRepository.save(organisation);
+        }else {
+            throw new NoSuchElementException();
+        }
     }
 
 
@@ -73,7 +81,7 @@ public class OrganisationController {
             Organisation organisation=optionalOrganisation.get();
             organisationRepository.delete(organisation);
         }else {
-            throw new IllegalArgumentException("id is not found");
+            throw new NoSuchElementException("id is not found");
         }
     }
 }

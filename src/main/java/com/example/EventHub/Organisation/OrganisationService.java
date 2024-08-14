@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -19,21 +20,4 @@ public class OrganisationService {
         this.organisationMapper=organisationMapper;
     }
 
-    public void postUpdate(Integer id, OrganisationDTO updatedOrganisation) {
-        Organisation organisation = organisationMapper.toEntity(updatedOrganisation);
-        Optional<Organisation> optionalOrganisation = organisationRepository.findById(id);
-        if (optionalOrganisation.isPresent()) {
-            organisation.setId(id);
-            organisationRepository.save(organisation);
-        }else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public String delete(Integer id, Model model) {
-        Organisation organisation = organisationRepository.findById(id).get();
-        organisationRepository.delete(organisation);
-        model.addAttribute("organisation", organisation);
-        return "organisation-delete";
-    }
 }
