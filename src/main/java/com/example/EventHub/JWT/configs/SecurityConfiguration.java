@@ -52,6 +52,7 @@ public class SecurityConfiguration {
 
                 .requestMatchers("/organisation/add", "/organisation/submit").permitAll()
                 .requestMatchers("/manager/register").permitAll()
+                .requestMatchers("/users/me").hasAnyAuthority("USER", "ROLE_USER", "ADMIN", "ROLE_ADMIN", "MANAGER", "ROLE_MANAGER")
 
 
                 //.anyRequest().hasAnyRole("USER", "ADMIN")
