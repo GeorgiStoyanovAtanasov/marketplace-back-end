@@ -1,21 +1,22 @@
 package com.example.EventHub;
 
+import com.example.EventHub.EventPermission.EventPermission;
 import com.example.EventHub.Manager.Manager;
 import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.Organisation.*;
-import com.example.EventHub.Role.Role;
 import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -80,7 +81,14 @@ public class OrganisationControllerTest {
         boolean actual = organisationController.addOrganisation(organisationDTO, 0);
         assertEquals(false, actual);
     }
+    @Test
+    public void testGetAllOrganisation() {
 
+        Iterable<Organisation> allOrganisations = organisationRepository.findAll();
+
+        assertNotNull(allOrganisations);
+
+    }
     @Test
     @Rollback
     void testPostUpdate_Success() {

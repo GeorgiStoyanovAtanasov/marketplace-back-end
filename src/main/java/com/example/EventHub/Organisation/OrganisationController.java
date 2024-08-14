@@ -25,14 +25,12 @@ import java.util.Optional;
 @RestController
 public class OrganisationController {
     private OrganisationRepository organisationRepository;
-    private OrganisationService organisationService;
     private OrganisationMapper organisationMapper;
     private ManagerRepository managerRepository;
 
     @Autowired
-    public OrganisationController(OrganisationRepository organisationRepository, OrganisationService organisationService, OrganisationMapper organisationMapper, ManagerRepository managerRepository, UserRepository userRepository, ManagerMapper managerMapper) {
+    public OrganisationController(OrganisationRepository organisationRepository, OrganisationMapper organisationMapper, ManagerRepository managerRepository, UserRepository userRepository, ManagerMapper managerMapper) {
         this.organisationRepository = organisationRepository;
-        this.organisationService = organisationService;
         this.organisationMapper = organisationMapper;
         this.managerRepository = managerRepository;
     }
