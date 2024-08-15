@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -22,9 +21,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("testdb")
+@ActiveProfiles("test")
+@Transactional
 @ExtendWith(DbSetupExtension.class)
 public class UserControllerTest {
+
     private UserRepository userRepository;
 
     private UserMapper userMapper;
@@ -38,17 +39,18 @@ public class UserControllerTest {
         this.userController = userController;
     }
 
+    private User testUser;
+
     @BeforeEach
     public void setUp() {
-        // Clean up the test database before each test
         userRepository.deleteAll();
 
-        // Create and save a test user
-        User user = new User();
-        user.setEmail("test@example.com");
-        user.setFullName("Test User");
-        user.setPassword("password"); // Make sure the password is encoded appropriately
-        userRepository.save(user);
+        testUser = new User();
+        testUser.setEmail("test@example.com");
+        testUser.setFullName("Test User");
+        testUser.setPassword("password");
+
+        userRepository.save(testUser);
     }
 
     @Test
@@ -58,19 +60,19 @@ public class UserControllerTest {
         UserDTO result = userController.authenticatedUser();
 
         // Assert
-        assertNotNull(result);
-        assertEquals("test@example.com", result.getEmail());
-        assertEquals("Test User", result.getFullName());
+        assertNotNull(result, "The result should not be null when the user is found");
+        assertEquals("test@example.com", result.getEmail(), "The email should match the mock user's email");
+        assertEquals("Test User", result.getFullName(), "The full name should match the mock user's full name");
     }
 
     @Test
     @WithMockUser(username = "nonexistent@example.com")
     public void testAuthenticatedUser_UserNotFound() {
         // Act & Assert
-        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+        Exception exception = assertThrows(NoSuchElementException.class, () -> {
             userController.authenticatedUser();
         });
 
-        assertEquals("No such user is found!", exception.getMessage());
+        assertEquals("No such user is found!", exception.getMessage(), "The exception message should match the expected text");
     }
 }
