@@ -39,6 +39,9 @@ public class OrganisationController {
     @PostMapping("/submit")
     public boolean addOrganisation(@RequestBody OrganisationDTO organisationDTO) {
         Integer id = managerService.getManagerId();
+        if(id == null){
+            return false;
+        }
         Optional<Manager> optionalManager = managerRepository.findById(id);
         if(optionalManager.isEmpty()){
            return false;

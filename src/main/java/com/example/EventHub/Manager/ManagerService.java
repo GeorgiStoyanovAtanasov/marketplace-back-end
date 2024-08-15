@@ -16,6 +16,9 @@ public class ManagerService {
     ManagerRepository managerRepository;
     public Integer getManagerId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null){
+            return null;
+        }
         String email = authentication.getName();
         User user = userRepository.findByEmail(email).orElse(null);
         Manager manager = managerRepository.findByUser(user);
