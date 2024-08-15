@@ -22,10 +22,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@Transactional
-@AutoConfigureMockMvc
+@ActiveProfiles("testdb")
+@ExtendWith(DbSetupExtension.class)
 public class UserControllerTest {
     private UserRepository userRepository;
 
