@@ -156,6 +156,5 @@ public class EventController {
             eventRepository.save(event);
         }
     }
-
 }
 

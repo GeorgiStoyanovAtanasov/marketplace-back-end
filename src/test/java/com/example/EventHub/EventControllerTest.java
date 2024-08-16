@@ -7,10 +7,7 @@ import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
 import com.example.EventHub.EventType.EventTypeRepository;
-import com.example.EventHub.Organisation.Organisation;
-import com.example.EventHub.Organisation.OrganisationDTO;
-import com.example.EventHub.Organisation.OrganisationMapper;
-import com.example.EventHub.Organisation.OrganisationRepository;
+import com.example.EventHub.Organisation.*;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,7 +58,7 @@ public class EventControllerTest {
         eventTypeRepository.deleteAll();
         eventRepository.deleteAll();
 
-        Organisation organisation = new Organisation("My Organisation");
+        Organisation organisation = new Organisation("My Organisation", OrganisationPermission.ACCEPT);
         organisationRepository.save(organisation);
 
         EventType eventType = new EventType("Conference");

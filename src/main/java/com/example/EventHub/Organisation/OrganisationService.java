@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +37,13 @@ public class OrganisationService {
         organisationRepository.delete(organisation);
         model.addAttribute("organisation", organisation);
         return "organisation-delete";
+    }
+    public List<OrganisationDTO> findOrganisationsByNameAndPermission(String name, OrganisationPermission organisationPermission){
+        List<Organisation> organisations = organisationRepository.findByNameAndPermission(name, organisationPermission);
+        List<OrganisationDTO> organisationDTOS = new ArrayList<>();
+        for (int i = 0; i < organisations.size(); i++) {
+            organisationDTOS.add(organisationMapper.toDTO(organisations.get(i)));
+        }
+        return organisationDTOS;
     }
 }

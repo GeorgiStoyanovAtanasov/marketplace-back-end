@@ -44,14 +44,15 @@ public class SecurityConfiguration {
 
 
 
-                .requestMatchers("/organisation/submit").hasRole("MANAGER")
                 .requestMatchers("/event/accept","/event/reject").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                 .requestMatchers("/event/accept","/event/reject").hasAnyRole("ADMIN")
 
                 .requestMatchers("/event/{eventName}").permitAll()
 
-                .requestMatchers("/organisation/add", "/organisation/submit").permitAll()
+                .requestMatchers("/organisation/add").hasAnyAuthority("ROLE_MANAGER", "MANAGER")
+                .requestMatchers("/organisation/submit").hasAnyAuthority("ROLE_MANAGER", "MANAGER")
                 .requestMatchers("/manager/register").permitAll()
+                .requestMatchers("/manager/organisation", "/manager/id").permitAll()
 
 
                 //.anyRequest().hasAnyRole("USER", "ADMIN")
