@@ -26,6 +26,7 @@ public class OrganisationController {
     private OrganisationMapper organisationMapper;
     private ManagerRepository managerRepository;
     private ManagerService managerService;
+    private OrganisationService organisationService;
 
     @Autowired
     public OrganisationController(OrganisationRepository organisationRepository, OrganisationService organisationService, OrganisationMapper organisationMapper, ManagerRepository managerRepository, UserRepository userRepository, ManagerMapper managerMapper, ManagerService managerService) {
@@ -33,6 +34,7 @@ public class OrganisationController {
         this.organisationMapper = organisationMapper;
         this.managerRepository = managerRepository;
         this.managerService = managerService;
+        this.organisationService = organisationService;
     }
 
     @PostMapping("/submit")
