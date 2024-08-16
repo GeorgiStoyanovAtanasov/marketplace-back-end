@@ -16,8 +16,11 @@ public class Organisation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
+    @Enumerated(EnumType.STRING)
+    private OrganisationPermission organisationPermission;
 
-    public Organisation(String name) {
+    public Organisation(String name, OrganisationPermission organisationPermission) {
         this.name = name;
+        this.organisationPermission = organisationPermission;
     }
 }
