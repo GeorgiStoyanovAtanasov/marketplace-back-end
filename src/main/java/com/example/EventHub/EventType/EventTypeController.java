@@ -2,6 +2,8 @@ package com.example.EventHub.EventType;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,10 +43,13 @@ public class EventTypeController {
         return allEventTypes;
     }
     @DeleteMapping("/delete")
-    public void deleteEventType(@RequestParam("id") Integer id){
+    public ResponseEntity<Void> deleteEventType(@RequestParam("id") Integer id) {
         Optional<EventType> foundEventType = eventTypeRepository.findById(id);
-        if(foundEventType.isPresent()){
+        if (foundEventType.isPresent()) {
             eventTypeRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
