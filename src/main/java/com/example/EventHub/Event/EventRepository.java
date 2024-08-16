@@ -1,6 +1,7 @@
 package com.example.EventHub.Event;
 
 import com.example.EventHub.EventPermission.EventPermission;
+import com.example.EventHub.Organisation.Organisation;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -27,4 +28,5 @@ public interface EventRepository extends CrudRepository<Event, Integer> {
 
     @Query("SELECT e FROM Event e WHERE e.eventPermission = :permission")
     List<Event> findByEventPermission(@Param("permission") EventPermission permission);
+    List<Event> findByOrganisation(Organisation organisation);
 }
