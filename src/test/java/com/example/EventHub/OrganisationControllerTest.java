@@ -1,9 +1,9 @@
 package com.example.EventHub;
 
+import com.example.EventHub.EventPermission.EventPermission;
 import com.example.EventHub.Manager.Manager;
 import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.Organisation.*;
-import com.example.EventHub.Role.Role;
 import com.example.EventHub.User.User;
 import com.example.EventHub.User.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +16,12 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ActiveProfiles({"testdb"})
@@ -45,9 +48,12 @@ public class OrganisationControllerTest {
     }
 
     private OrganisationDTO organisationDTO;
+    private Organisation organisation;
 
     @BeforeEach
     void setUp() {
+        organisationDTO = new OrganisationDTO(1, "Test Org", OrganisationPermission.WAITING);
+        organisation = new Organisation(1, "Updated Org", OrganisationPermission.WAITING);
         managerRepository.deleteAll();
         organisationRepository.deleteAll();
         organisationDTO = new OrganisationDTO(1, "Test Org", OrganisationPermission.ACCEPT);
@@ -67,7 +73,7 @@ public class OrganisationControllerTest {
         manager.setUser(user);
         managerRepository.save(manager);
 
-        boolean result  = organisationController.addOrganisation(organisationDTO);
+        boolean result = organisationController.addOrganisation(organisationDTO);
 
         Organisation savedOrganisation = organisationRepository.findByName("Test Org");
         assertNotNull(savedOrganisation, "Organisation should be saved in the database");
@@ -82,8 +88,9 @@ public class OrganisationControllerTest {
         boolean actual = organisationController.addOrganisation(organisationDTO);
         assertFalse(actual);
     }
+
     @Test
-    void testAllOrganisations(){
+    void testAllOrganisations() {
         Organisation organisation = new Organisation();
         organisation.setName("suhdkfgf");
         organisation.setOrganisationPermission(OrganisationPermission.ACCEPT);
@@ -91,6 +98,7 @@ public class OrganisationControllerTest {
         List<Organisation> organisations = (List<Organisation>) organisationController.allOrganisations();
         assertEquals(1, organisations.size());
     }
+
     @Test
     public void testDeleteOrganisationSuccess() {
         Organisation organisation = new Organisation("Test Organisation", OrganisationPermission.WAITING);
@@ -111,12 +119,13 @@ public class OrganisationControllerTest {
     public void testDeleteOrganisationNotFound() {
         Integer nonExistentId = -1;
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
             organisationController.delete(nonExistentId);
         });
 
         assertEquals("id is not found", exception.getMessage());
     }
+
     @Test
     public void testAcceptOrganisationSuccess() {
         Organisation organisation = new Organisation("Test Organisation", OrganisationPermission.WAITING);
@@ -148,6 +157,7 @@ public class OrganisationControllerTest {
         long count = organisationRepository.count();
         assertEquals(0, count);
     }
+
     @Test
     public void testRejectOrganisationSuccess() {
         Organisation organisation = new Organisation("Test Organisation", OrganisationPermission.WAITING);
@@ -179,6 +189,7 @@ public class OrganisationControllerTest {
         long count = organisationRepository.count();
         assertEquals(0, count);
     }
+
     @Test
     public void testGetAllWaitingOrganisationsWithNameAndPermission() {
         addTestOrganisations();
@@ -213,6 +224,48 @@ public class OrganisationControllerTest {
     }
 
     @Test
+    public void testGetAllOrganisation() {
+
+        Iterable<Organisation> allOrganisations = organisationRepository.findAll();
+
+        assertNotNull(allOrganisations);
+
+    }
+
+    @Test
+    @Rollback
+    void testPostUpdate_Success() {
+        organisationRepository.save(organisation);
+        organisationController.postUpdatedOrganisation(organisationRepository.findByName(organisation.getName()).getId(), organisationDTO);
+        Optional<Organisation> updatedOrganisation = Optional.ofNullable(organisationRepository.findByName(organisationDTO.getName()));
+        assertTrue(updatedOrganisation.isPresent(), "Organisation should be present after update");
+        assertEquals("Test Org", updatedOrganisation.get().getName(), "Organisation name should be updated");
+    }
+
+    @Test
+    @Rollback
+    void testPostUpdate_OrganisationNotFound() {
+        assertThrows(NoSuchElementException.class, () -> organisationController.postUpdatedOrganisation(0, organisationDTO), "Expected IllegalArgumentException for non-existent ID");
+    }
+
+    @Test
+    @Rollback
+    void testDelete_Success() {
+        Organisation savedOrganisation = organisationRepository.save(new Organisation());
+
+        organisationController.delete(savedOrganisation.getId());
+
+        Optional<Organisation> deletedOrganisation = organisationRepository.findById(savedOrganisation.getId());
+        assertTrue(deletedOrganisation.isEmpty(), "Organisation should be deleted");
+    }
+
+    @Test
+    @Rollback
+    void testDelete_OrganisationNotFound() {
+        assertThrows(NoSuchElementException.class, () -> organisationController.delete(0), "Expected NoSuchElementException for non-existent ID");
+    }
+
+    @Test
     public void testGetAllWaitingOrganisationsWithPermissionOnly() {
         addTestOrganisations();
         // Given
@@ -241,7 +294,8 @@ public class OrganisationControllerTest {
         // Then
         assertEquals(0, organisationDTOS.size());
     }
-    public void addTestOrganisations(){
+
+    public void addTestOrganisations() {
         Organisation org1 = new Organisation("Organisation 1", OrganisationPermission.WAITING);
         Organisation org2 = new Organisation("Organisation 2", OrganisationPermission.ACCEPT);
         Organisation org3 = new Organisation("Organisation 3", OrganisationPermission.WAITING);
@@ -250,4 +304,5 @@ public class OrganisationControllerTest {
         organisationRepository.save(org3);
     }
 }
+
 

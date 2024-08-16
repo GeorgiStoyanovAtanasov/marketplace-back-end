@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,7 @@ public class OrganisationService {
         this.organisationRepository = organisationRepository;
         this.organisationMapper=organisationMapper;
     }
-
+  
     public void postUpdate(Integer id, OrganisationDTO updatedOrganisation) {
         Organisation organisation = organisationMapper.toEntity(updatedOrganisation);
         Optional<Organisation> optionalOrganisation = organisationRepository.findById(id);

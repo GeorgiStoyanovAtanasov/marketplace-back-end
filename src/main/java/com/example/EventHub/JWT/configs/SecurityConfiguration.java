@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/auth/register/user", "/auth/login").permitAll()
                 .requestMatchers("/users/roles").permitAll()
                 .requestMatchers("/users/email").permitAll()
+                .requestMatchers("/users/findByEmail").permitAll()
                 .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
                 .requestMatchers("/organisation/all").permitAll()
 
