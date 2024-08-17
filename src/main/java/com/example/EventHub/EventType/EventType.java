@@ -2,6 +2,7 @@ package com.example.EventHub.EventType;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 

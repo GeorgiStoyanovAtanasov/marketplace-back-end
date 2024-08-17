@@ -7,7 +7,12 @@ import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
 import com.example.EventHub.EventType.EventTypeRepository;
+import com.example.EventHub.Manager.Manager;
+import com.example.EventHub.Manager.ManagerRepository;
 import com.example.EventHub.Organisation.*;
+import com.example.EventHub.Role.Role;
+import com.example.EventHub.User.User;
+import com.example.EventHub.User.UserRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -47,6 +53,10 @@ public class EventControllerTest {
     private EventTypeRepository eventTypeRepository;
     @Autowired
     private EventService eventService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ManagerRepository managerRepository;
 
     @InjectMocks
     @Autowired
@@ -180,6 +190,31 @@ public class EventControllerTest {
         assertThrows(IllegalArgumentException.class, () -> {
             eventService.delete(nonExistentEventName);
         });
+    }
+    @Test
+    @WithMockUser(username = "manager@example.com", roles = {"MANAGER"})
+    public void testGetEventsForOrganisation() {
+        // Arrange
+        User user = new User("John Wick", "manager@example.com", "123456", Role.MANAGER, Collections.emptyList());
+        user = userRepository.save(user);
+        Organisation organisation = new Organisation("testOrganisation", OrganisationPermission.ACCEPT);
+        organisation = organisationRepository.save(organisation);
+        EventType eventType = new EventType("conference");
+        eventType = eventTypeRepository.save(eventType);
+        String validBase64String = "SGVsbG8gV29ybGQ="; // This is "Hello World" in Base64
+        byte[] decodedImage = Base64.getDecoder().decode(validBase64String);
+        Event event = new Event("testEventfgh", generateFutureDate(), 6, "dhujkrvfgb", "dhrfbg", "12:30", 0, 80, decodedImage, organisation, eventType, EventStatus.AVAILABLE, Collections.emptyList(), EventPermission.ACCEPT);
+        event = eventRepository.save(event);
+        Manager manager = new Manager();
+        manager.setUser(user);
+        manager.setOrganisation(organisation);
+        managerRepository.save(manager);
+
+        // Act
+        List<EventDTO> eventDTOS = eventController.getEventsForOrganisation();
+
+        // Assert
+        assertEquals(event.getName(), eventDTOS.get(0).getName());
     }
 
 

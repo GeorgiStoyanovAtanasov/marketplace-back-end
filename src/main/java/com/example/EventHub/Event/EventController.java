@@ -7,7 +7,10 @@ import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.EventType.EventTypeDTO;
 import com.example.EventHub.EventType.EventTypeMapper;
 import com.example.EventHub.JWT.services.JwtService;
+import com.example.EventHub.Manager.Manager;
+import com.example.EventHub.Manager.ManagerService;
 import com.example.EventHub.Organisation.Organisation;
+import com.example.EventHub.Organisation.OrganisationDTO;
 import com.example.EventHub.Organisation.OrganisationRepository;
 import com.example.EventHub.User.UserRepository;
 import com.example.EventHub.EventType.EventTypeRepository;
@@ -54,6 +57,8 @@ public class EventController {
     UserRepository userRepository;
     @Autowired
     JwtService jwtService;
+    @Autowired
+    ManagerService managerService;
 
     @PostMapping("/submit")
     public boolean postEvent(@RequestBody EventDTO eventDTO) {
@@ -155,6 +160,17 @@ public class EventController {
             event.setEventPermission(EventPermission.REJECT);
             eventRepository.save(event);
         }
+    }
+    @GetMapping("/organisation")
+    public List<EventDTO> getEventsForOrganisation(){
+        OrganisationDTO organisationDTO = managerService.getOrganisationForManager();
+        Organisation organisation = organisationRepository.findByName(organisationDTO.getName());
+        List<Event> events = eventRepository.findByOrganisation(organisation);
+        List<EventDTO> eventDTOS = new ArrayList<>();
+        for (int i = 0; i < events.size(); i++) {
+            eventDTOS.add(eventMapper.toDTO(events.get(i)));
+        }
+        return eventDTOS;
     }
 }
 

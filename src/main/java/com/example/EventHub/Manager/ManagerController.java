@@ -44,15 +44,7 @@ public class ManagerController {
     }
     @GetMapping("/organisation")
     public ResponseEntity<OrganisationDTO> findOrganisationByManager(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        User user = userRepository.findByEmail(email).orElse(null);
-        Manager manager = managerRepository.findByUser(user);
-        if(manager.getOrganisation() == null){
-            return null;
-        }
-        OrganisationDTO organisationDTO = organisationMapper.toDTO(manager.getOrganisation());
-        return ResponseEntity.ok(organisationDTO);
+        return ResponseEntity.ok(managerService.getOrganisationForManager());
     }
     @GetMapping("/id")
     public ResponseEntity<Integer> getIdOfManager(){
