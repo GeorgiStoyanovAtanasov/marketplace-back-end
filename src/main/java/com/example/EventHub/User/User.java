@@ -4,6 +4,7 @@ package com.example.EventHub.User;
 import com.example.EventHub.Event.Event;
 import com.example.EventHub.Role.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,14 +49,6 @@ public class User implements UserDetails {
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<Event> events;
-
-    public User(String fullName, String email, String password, Role role, List<Event> events) {
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.events = events;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -149,6 +142,14 @@ public class User implements UserDetails {
     }
 
     public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    public User(String fullName, String email, String password, Role role, List<Event> events) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
         this.events = events;
     }
 

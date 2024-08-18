@@ -1,5 +1,6 @@
 package com.example.EventHub.User;
 
+import com.example.EventHub.EventType.EventType;
 import com.example.EventHub.JWT.services.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 //@GetMapping("/users")
@@ -34,13 +36,21 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<User> authenticatedUser() {
+    @GetMapping("/users/me")
+    public UserDTO authenticatedUser() {
+        User user;
+        UserDTO userDTO;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        User currentUser = (User) authentication.getPrincipal();
-
-        return ResponseEntity.ok(currentUser);
+        String email = authentication.getName();
+        Optional<User> foundUser = userRepository.findByEmail(email);
+        if (foundUser.isPresent()){
+            user = foundUser.get();
+            userDTO = userMapper.toDTO(user);
+            return userDTO;
+        }
+        else {
+            throw new NoSuchElementException("No such user is found!");
+        }
     }
 
     @GetMapping("/users/all")
