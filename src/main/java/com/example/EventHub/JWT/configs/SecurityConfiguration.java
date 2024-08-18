@@ -39,20 +39,22 @@ public class SecurityConfiguration {
                 .requestMatchers("/auth/register/user", "/auth/login").permitAll()
                 .requestMatchers("/users/roles").permitAll()
                 .requestMatchers("/users/email").permitAll()
+                .requestMatchers("/users/findByEmail").permitAll()
                 .requestMatchers("/registration", "/registration/submit", "/home", "/event/all", "/event/search").permitAll()
                 .requestMatchers("/organisation/all").permitAll()
 
 
 
-                .requestMatchers("/organisation/submit").hasRole("MANAGER")
                 .requestMatchers("/event/accept","/event/reject").hasAnyAuthority("ROLE_ADMIN", "ADMIN")
                 .requestMatchers("/event/accept","/event/reject").hasAnyRole("ADMIN")
 
                 .requestMatchers("/event/{eventName}").permitAll()
 
-                .requestMatchers("/organisation/add", "/organisation/submit").permitAll()
+                .requestMatchers("/organisation/add").hasAnyAuthority("ROLE_MANAGER", "MANAGER")
+                .requestMatchers("/organisation/submit").hasAnyAuthority("ROLE_MANAGER", "MANAGER")
                 .requestMatchers("/manager/register").permitAll()
                 .requestMatchers("/users/me").hasAnyAuthority("USER", "ROLE_USER", "ADMIN", "ROLE_ADMIN", "MANAGER", "ROLE_MANAGER")
+                .requestMatchers("/manager/organisation", "/manager/id").permitAll()
 
 
                 //.anyRequest().hasAnyRole("USER", "ADMIN")

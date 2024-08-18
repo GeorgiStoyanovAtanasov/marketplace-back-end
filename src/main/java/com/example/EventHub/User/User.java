@@ -50,6 +50,14 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private List<Event> events;
 
+    public User(String fullName, String email, String password, Role role, List<Event> events) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.events = events;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.toString());

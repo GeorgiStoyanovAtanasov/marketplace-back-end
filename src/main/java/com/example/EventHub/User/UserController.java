@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -69,4 +70,15 @@ public class UserController {
         String email = authentication.getName();
         return ResponseEntity.ok(email);
     }
+    @GetMapping("/users/findByEmail")
+    public boolean ifEmailExist(@RequestParam String email){
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isPresent()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }
