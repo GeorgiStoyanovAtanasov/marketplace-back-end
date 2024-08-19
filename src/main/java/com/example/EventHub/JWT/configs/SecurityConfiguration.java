@@ -49,6 +49,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/event/accept","/event/reject").hasAnyRole("ADMIN")
 
                 .requestMatchers("/event/{eventName}").permitAll()
+                .requestMatchers("/event/over").permitAll()
 
                 .requestMatchers("/organisation/add").hasAnyAuthority("ROLE_MANAGER", "MANAGER")
                 .requestMatchers("/organisation/submit").hasAnyAuthority("ROLE_MANAGER", "MANAGER")

@@ -106,6 +106,10 @@ public class EventController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
     }
+    @PostMapping("/over")
+    public ResponseEntity<Boolean> isEventOver(@RequestBody EventDTO eventDTO){
+        return ResponseEntity.ok(eventService.errorEventStatus(eventDTO));
+    }
 
     @GetMapping("/search")
     public ResponseEntity<Map<String, List<?>>> searchEvents(@RequestParam(name = "name", required = false) String name,
@@ -118,15 +122,9 @@ public class EventController {
         Map<String, List<?>> response = eventService.searchEvents(name, place, type, date, minPrice, maxPrice, eventPermission);
                                                                 return ResponseEntity.ok(response);
     }
-
-    @GetMapping("/update")
-    public String updateProductForm(@RequestParam("id") Integer id, Model model) {
-        return eventService.updateForm(id, model);
-    }
-
     @PostMapping("/update")
-    public String postUpdatedProduct(@RequestParam("id") Integer id, @Valid @ModelAttribute Event updatedEvent, BindingResult bindingResult, Model model) {
-        return eventService.postUpdate(id, updatedEvent, bindingResult, model);
+    public boolean postUpdatedProduct(@RequestBody EventDTO eventDTO) {
+        return eventService.postUpdate(eventDTO);
     }
 
     @DeleteMapping("/delete")
@@ -171,6 +169,14 @@ public class EventController {
             eventDTOS.add(eventMapper.toDTO(events.get(i)));
         }
         return eventDTOS;
+    }
+    @GetMapping("/id")
+    public EventDTO getEventById(@RequestParam("id") Integer id){
+        Optional<Event> event = eventRepository.findById(id);
+        if(event.isEmpty()){
+            throw new NoSuchElementException();
+        }
+        return eventMapper.toDTO(event.get());
     }
 }
 

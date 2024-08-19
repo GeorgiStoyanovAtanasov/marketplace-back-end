@@ -63,18 +63,14 @@ public class EventService {
         }
     }
 
-    public String postUpdate(Integer id, Event updatedEvent, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("eventTypes", eventTypeRepository.findAll());
-            model.addAttribute("organisations", organisationRepository.findAll());
-            return "event-update-form";
-        } else {
-            Event event = eventRepository.findById(id).get();
-            getEvent(event, updatedEvent);
-            eventRepository.save(event);
-            model.addAttribute("event", event);
-            return "event-update-result";
-        }
+    public boolean postUpdate(EventDTO eventDTO) {
+        final Integer id = eventDTO.getId();
+        byte[] decodedImage = Base64.getDecoder().decode(eventDTO.getImage());
+        Event event = new Event(eventDTO.getName(), eventDTO.getDate(), eventDTO.getDuration(), eventDTO.getDescription(), eventDTO.getPlace(), eventDTO.getTime(), eventDTO.getTicketPrice(), eventDTO.getCapacity(), decodedImage, organisationRepository.findByName(eventDTO.getOrganisation().getName()), eventTypeRepository.findByTypeName(eventDTO.getEventTypeDTO().getTypeName()), EventStatus.AVAILABLE, null, EventPermission.WAITING);
+        event.setId(id);
+        //Event event = eventMapper.toEntity(eventDTO);
+        eventRepository.save(event);
+        return true;
     }
 
     private Event getEvent(Event event, Event updatedEvent) {
@@ -93,19 +89,19 @@ public class EventService {
 
     public void delete(String name) {
         Event event = eventRepository.findByName(name);
-        if(event == null){
+        if (event == null) {
             throw new IllegalArgumentException("name cannot be null");
         }
         eventRepository.delete(event);
     }
 
     public Map<String, List<?>> searchEvents(String name,
-                                                             String place,
-                                                             Integer type,
-                                                             String date,
-                                                             Double minPrice,
-                                                             Double maxPrice,
-                                                             EventPermission eventPermission) {
+                                             String place,
+                                             Integer type,
+                                             String date,
+                                             Double minPrice,
+                                             Double maxPrice,
+                                             EventPermission eventPermission) {
         if (place == null) {
             place = "";
         }
